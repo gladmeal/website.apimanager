@@ -1,0 +1,15 @@
+@use 'src/mixins' as *;
+
+.form-button-cotnainer{
+    .form-button{
+        background-color: $xiketic;
+        color: $cultured;
+        border: none;
+        border-radius: 50px;
+        font-size: 1.10em;
+        text-transform: uppercase;
+        font-weight: 600;
+        letter-spacing: 0.15em;
+        color: $vermilion;
+    }
+}

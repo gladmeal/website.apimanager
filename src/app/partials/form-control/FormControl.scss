@@ -1,0 +1,113 @@
+@use 'src/mixins' as *;
+
+.form-control-select-container{
+    .form-control-content-seleted{
+        flex-wrap: wrap;
+    }
+}
+
+.form-control-modal{
+    background-color: rgba($color: $xiketic, $alpha: 0.8);
+    z-index: 100;
+    top: 0px;
+    left: 0px;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    animation: fade 0.3s ease-in 0s 1 alternate forwards;
+
+    @keyframes fade {
+        100%{
+            opacity: 1;
+        }
+    }
+
+    .form-modal-data-container{
+        height: calc( 100% - 30px );
+        width: calc( 100% - 30px );
+        background-color: $cultured;
+        border-radius: 8px;
+        max-width: 450px;
+
+        .form-modal-head{
+            width: 100%;
+            border-bottom-color: $cultured-2;
+
+            .form-modal-head-brand{
+                flex: 1;
+                font-size: 1.15em;
+                text-transform: uppercase;
+                color: $xiketic;
+                font-weight: 600;
+                letter-spacing: 0.12em;
+            }
+
+            .form-modal-button{
+                cursor: pointer;
+                color: $xiketic;
+
+                i{
+                    font-size: 25px;
+                }
+            }
+        }
+
+        .form-modal-body{
+            flex: 1;
+            width: 100%;
+            overflow: auto;
+
+            &::-webkit-scrollbar{
+                background-color: $cultured-2;
+                width: 8px;
+                border-radius: 6px;
+                transition-duration: 0.2s;
+                cursor: pointer;
+            }
+
+            &::-webkit-scrollbar-thumb{
+                background-color: $xiketic;
+                border-radius: 8px;
+            }
+        }
+    }
+}
+
+.form-control-modal-item{
+    font-size: 1.25em;
+    color: $eerie-black;
+    text-transform: capitalize;
+    transition-duration: 0.2s;
+    border-radius: 5px;
+    cursor: pointer;
+
+    &:hover{
+        background-color: $cultured-2;
+    }
+}
+
+.form-control-selected{
+    background-color: $xiketic;
+    border-radius: 50px;
+    width: fit-content;
+    display: inline-block;
+    color: $vermilion;
+    transition-duration: 0.2s;
+
+    &:hover{
+        color: $xiketic;
+        background-color: $vermilion;
+    }
+
+    p{
+        font-size: 0.95em;
+        font-weight: 600;
+    }
+
+    .form-control-select-close{
+        cursor: pointer;
+        i{
+            font-size: 18px;
+        }
+    }
+}

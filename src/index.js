@@ -17,9 +17,15 @@ import SettingsIndex from './app/settings-index/SettingsIndex';
 
 import Add from './app/add/Add';
 import AddIndex from './app/add-index/AddIndex';
+import AddFood from './app/add-food/AddFood';
+import AddFoodStuff from './app/add-foodstuff/AddFoodStuff';
+import AddPlate from './app/add-plate/AddPlate';
 
 import History from './app/history/History';
 import HistoryIndex from './app/history-index/HistoryIndex';
+
+import Update from './app/update/Update';
+import UpdateIndex from './app/update-index/UpdateIndex';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -28,15 +34,22 @@ ReactDOM.render(
         <Route index element={ <App /> } />
         <Route path='sign-in' element={ <SingIn /> } />
         <Route path='account' element={ <AccountBase /> }>
+          <Route index element={ <Home /> } />
           <Route path='home' element={ <Home /> } />
           <Route path='add' element={ <Add /> }>
             <Route index element={ <AddIndex /> } />
+            <Route path='food' element={ <AddFood /> } />
+            <Route path='foodstuff' element={ <AddFoodStuff /> } />
+            <Route path='plate' element={ <AddPlate /> } />
           </Route>
           <Route path='history' element={ <History /> }>
             <Route index element={ <HistoryIndex /> } />
           </Route>
           <Route path='settings' element={ <Settings /> }>
             <Route index element={ <SettingsIndex /> } />
+          </Route>
+          <Route path='update' element={ <Update /> }>
+            <Route index element={ <UpdateIndex /> } />
           </Route>
           <Route path='*' element={ <AccountError /> } />
         </Route>

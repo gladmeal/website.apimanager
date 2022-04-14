@@ -13,7 +13,10 @@
         p{
             text-transform: capitalize;
             color: $cultured-2;
-            font-size: 1.25em;
+            font-size: 0.95em;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 0.12em;
         }
     
         &:hover{

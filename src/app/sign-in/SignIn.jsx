@@ -1,22 +1,33 @@
 import React from 'react';
 import './SignIn.scss';
+import { Navigate } from 'react-router-dom';
 
 export default class SignIn extends React.Component{
     constructor( props ) {
         super( props );
         this.state  = {
             email: '',
-            password: ''
+            password: '',
+            navigate: false
         };
+
+        this._submitClicked.bind( this );
     }
 
     _formSubmit( e ) {
         e.preventDefault();
     }
 
+    _submitClicked() {
+        this.setState( {
+            navigate: true
+        } )
+    }
+
     render() {
         return (
             <main className='global d-flex justify-content-center align-items-center'>
+                { this.state.navigate && <Navigate to="/account/home" /> }
                 <form 
                     id="form" 
                     onSubmit={ this._formSubmit }
@@ -51,7 +62,12 @@ export default class SignIn extends React.Component{
                         <label htmlFor="password" className="form-floating-label ps-3"> Password </label>
                     </div>
                     <div className="content-submit d-flex justify-content-center align-items-center pt-md-4 w-100">
-                        <input type="submit" value="Connexion" className='mt-4 px-5 py-3 rounded-pill' />
+                        <input 
+                            type="submit" 
+                            value="Connexion" 
+                            className='mt-4 px-5 py-3 rounded-pill'
+                            onClick={ () => this._submitClicked() }
+                        />
                     </div>
                 </form>
             </main>

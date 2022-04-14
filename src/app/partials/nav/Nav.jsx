@@ -55,6 +55,7 @@ export default class Nav extends React.Component{
                     <NavItem to="/account/home" name="Home" />
                     <NavItem to="/account/add" name="Ajouter" />
                     <NavItem to="/account/history" name="Historique"/>
+                    <NavItem to="/account/update" name="Modifier"/>
                     <NavItem to="/account/settings" name="Parametres"/>
                 </div>
             </nav>

@@ -1,0 +1,53 @@
+@use 'src/mixins' as *;
+
+.form-manager{
+    .form-manager-icon{
+        height: 150px;
+        width: 150px;
+        background-color: $xiketic;
+        border-radius: 100%;
+
+        i{
+            font-size: 90px;
+            color: $vermilion;
+        }
+    }
+
+    > form{
+        flex: 1;
+        background-color: $cultured;
+        border-radius: 10px;
+        min-height: 350px;
+
+        .form-data-container{
+            .form-head{
+                p{
+                    font-size: 1.3em;
+                    text-transform: uppercase;
+                    font-weight: 600;
+                    letter-spacing: 0.13em;
+
+                    i{
+                        font-size: 25px;
+                    }
+                }
+            }
+        }
+    }
+
+    @media screen and ( max-width: 768px ) {
+        > form{
+            .form-data-container{
+                .form-head{
+                    p{
+                        font-size: 0.98em;
+    
+                        i{
+                            font-size: 18px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
