@@ -1,0 +1,74 @@
+@use 'src/mixins' as *;
+
+.page-item{
+    background-color: $xiketic;
+    border-radius: 10px;
+    text-decoration: none;
+    border-bottom: 3px solid $vermilion;
+    overflow: hidden;
+
+    &::before{
+        content: "";
+        display: block;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        left: 0px;
+        top: 100%;
+        transition-duration: 0.2s;
+        background-color: $vermilion;
+    }
+
+    &:hover::before{
+        top: 0px;
+    }
+
+    .page-item-header{
+        border-radius: 100px;
+        height: 120px;
+        width: 120px;
+        background-color: $vermilion;
+        transition-duration: 0.2s;
+
+        i{
+            font-size: 60px;
+            color: $xiketic;
+            transition-duration: 0.2s;
+        }
+    }
+
+    .page-item-body{
+        .page-item-title{
+            color: $vermilion;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            transition-duration: 0.2s;
+        }
+
+        p{
+            font-size: 0.95em;
+            color: #AAAAAA;
+            transition-duration: 0.2s;
+        }
+    }
+
+    &:hover{
+        .page-item-header{
+            background-color: $xiketic;
+            i{
+                color: $vermilion;
+            }
+        }
+
+        .page-item-body{
+            .page-item-title{
+                color: $xiketic;
+            }
+
+            p{
+                color: $cultured;
+            }
+        }
+    }
+}

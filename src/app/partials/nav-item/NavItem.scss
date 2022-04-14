@@ -1,0 +1,29 @@
+@use 'src/mixins' as *;
+
+
+.navbar-link{
+    text-decoration: none;
+
+    .navbar-item{
+        border-radius: 35px;
+        transition-duration: 0.2s;
+        max-width: fit-content;
+        cursor: pointer;
+    
+        p{
+            text-transform: capitalize;
+            color: $cultured-2;
+            font-size: 1.25em;
+        }
+    
+        &:hover{
+            background-color: rgba($color: #FFFFFF, $alpha: 0.1 );
+        }
+    }
+
+    &.active{
+        .navbar-item{
+            background-color: rgba($color: #FFFFFF, $alpha: 0.1 );
+        }
+    }
+}

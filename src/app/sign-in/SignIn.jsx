@@ -1,7 +1,7 @@
 import React from 'react';
 import './SignIn.scss';
 
-export default class App extends React.Component{
+export default class SignIn extends React.Component{
     constructor( props ) {
         super( props );
         this.state  = {
@@ -23,7 +23,10 @@ export default class App extends React.Component{
                     className="d-flex flex-column justify-content-center align-items-start py-5 px-3 px-sm-5"
                 >
                     <div className="form-title mb-3 text-center w-100">
-                        <p className='text-center'> Glad Meal Admin </p>
+                        <p className='text-center'> 
+                            <span> Glad Meal </span> 
+                            Admin 
+                        </p>
                     </div>
                     <div className="form-floating mt-2">
                         <input 
@@ -48,7 +51,7 @@ export default class App extends React.Component{
                         <label htmlFor="password" className="form-floating-label ps-3"> Password </label>
                     </div>
                     <div className="content-submit d-flex justify-content-center align-items-center pt-md-4 w-100">
-                        <input type="submit" value="Envoyer" className='mt-4 px-5 py-3 rounded-pill' />
+                        <input type="submit" value="Connexion" className='mt-4 px-5 py-3 rounded-pill' />
                     </div>
                 </form>
             </main>

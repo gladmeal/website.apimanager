@@ -8,12 +8,38 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import App from './app/App';
 import SingIn from './app/sign-in/SignIn';
 
+import AccountBase from './app/account-base/AccountBase';
+import AccountError from './app/account-error/AccountError';
+import Home from './app/home/Home';
+
+import Settings from './app/settings/Settings';
+import SettingsIndex from './app/settings-index/SettingsIndex';
+
+import Add from './app/add/Add';
+import AddIndex from './app/add-index/AddIndex';
+
+import History from './app/history/History';
+import HistoryIndex from './app/history-index/HistoryIndex';
+
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
         <Route index element={ <App /> } />
-        <Route path='/sign-in' element={ <SingIn /> } />
+        <Route path='sign-in' element={ <SingIn /> } />
+        <Route path='account' element={ <AccountBase /> }>
+          <Route path='home' element={ <Home /> } />
+          <Route path='add' element={ <Add /> }>
+            <Route index element={ <AddIndex /> } />
+          </Route>
+          <Route path='history' element={ <History /> }>
+            <Route index element={ <HistoryIndex /> } />
+          </Route>
+          <Route path='settings' element={ <Settings /> }>
+            <Route index element={ <SettingsIndex /> } />
+          </Route>
+          <Route path='*' element={ <AccountError /> } />
+        </Route>
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,

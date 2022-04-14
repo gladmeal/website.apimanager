@@ -1,0 +1,46 @@
+@use 'src/mixins' as *;
+
+.navbar{
+    background-color: $xiketic;
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0px;
+    z-index: 25;
+
+    .navbar-part{
+        &.first{
+            .navbar-brand{
+                color: $vermilion;
+                i{
+                    font-size: 25px;
+                }
+
+                p{
+                    font-size: 1.3em;
+                    font-weight: 600;
+                }
+            }
+
+            .navbar-button{
+                width: 40px;
+                height: 40px;
+                border: 3px solid $vermilion;
+                border-radius: 5px;
+                color: $vermilion;
+                cursor: pointer;
+
+                i{
+                    font-size: 25px;
+                }
+            }
+
+            @media screen and ( max-width: 768px ) {
+                flex: 1;
+            }
+        }
+
+        &.second{
+            flex: 1;
+        }
+    }
+}
