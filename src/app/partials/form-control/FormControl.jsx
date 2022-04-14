@@ -36,6 +36,10 @@ export default class FormControl extends React.Component{
         this.state = {
             label: this.props.label || 'label',
             modalVisible: false,
+            file: undefined,
+            dataUrl: '',
+            error: this.props.error || '',
+            icon: this.props.icon || 'image-fill',
             selectedVisible: true,
             initialOptions: this.props.options || [ ],
             selected: []
@@ -113,6 +117,41 @@ export default class FormControl extends React.Component{
         this._addSelected( item );
     }
 
+    _verifyFile( file, url = '' ) {
+        const 
+            ex = file.name.split(  '.' ).pop(),
+            size = file.size / 1024 / 1024;
+            console.log( ex, size );
+        this.setState( {
+            dataUrl: url
+        } );
+    }
+
+    _onChange( context ) {
+        const 
+            file = context.files[ 0 ];
+        if ( file instanceof File ) {
+            const 
+                reader = new FileReader();
+                    reader.onload = ( e ) => (
+                        this._verifyFile( file, e.target.result )
+                    );
+
+                    reader.addEventListener( 'abort', () => {
+                        this.setState( {
+                            error: 'Request abort'
+                        } );
+                    } );
+
+                    reader.addEventListener( 'error', () => {
+                        this.setState( {
+                            error: 'error during image loading'
+                        } );
+                    } );
+            reader.readAsDataURL( file );
+        }
+    }
+
     render() {
         if ( this.props.type === 'select' ) {
             return (
@@ -165,6 +204,30 @@ export default class FormControl extends React.Component{
                     </div>
                 </div>
             );
+        } else {
+            if ( this.props.type === 'file' ) {
+                return (
+                    <div className="w-100 d-flex flex-column justify-content-center align-items-center py-3 form-control-file">
+                        <input 
+                            { ...this.props } 
+                            className={ `form-control d-none ${ this.props.className || '' }`}
+                            ref={ this.ref }
+                            onChange={ ( e ) => this._onChange( e.target ) }
+                        />
+                        <label htmlFor={ this.props.id } className="d-flex justify-content-center align-items-center">
+                            { !this.state.dataUrl && (
+                                <i className={ `bi bi-${ this.state.icon }` }></i>
+                            ) }
+                            { !!this.state.dataUrl && (
+                                <img src={ this.state.dataUrl } alt="images data" />
+                            ) }
+                        </label>
+                        <p className="m-0 pt-2 text-danger w-100 text-center">
+                            { this.state.error }
+                        </p>
+                    </div>
+                );
+            } 
         }
         return (
             <div className="form-floating form-control-container">

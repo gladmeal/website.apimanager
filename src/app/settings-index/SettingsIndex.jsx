@@ -25,7 +25,7 @@ export default class SettingsIndex extends React.Component{
                     <div className="col-12 col-sm-6 col-md-4 col-lg-3">
                         <PageItem
                             to="/account/settings/user"
-                            title="User"
+                            title="Utilisateur"
                             icon="people-fill"
                             description="Liste des utilisateurs"
                         />
@@ -33,7 +33,7 @@ export default class SettingsIndex extends React.Component{
                     <div className="col-12 col-sm-6 col-md-4 col-lg-3">
                         <PageItem
                             to="/account/settings/user"
-                            title="Create User"
+                            title="Admin"
                             icon="person-circle"
                             description="Ajouter un utilisateur"
                         />

@@ -20,7 +20,6 @@ export default class AddFood extends React.Component{
 
     _onFormSubmit( e ) {
         e.preventDefault();
-        console.log( this.ref.current.getValue() );
     }
 
     render() {

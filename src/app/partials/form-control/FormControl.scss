@@ -111,3 +111,27 @@
         }
     }
 }
+
+.form-control-file{
+    label{
+        width: 130px;
+        height: 130px;
+        border-radius: 100%;
+        background-color: $xiketic;
+        cursor: pointer;
+        overflow: hidden;
+
+        i{
+            font-size: 60px;
+            color: $vermilion;
+        }
+
+        img{
+            position: absolute;
+            min-width: 100%;
+            min-height: 100%;
+            max-width: 110%;
+            max-height: 110%;
+        }
+    }
+}
