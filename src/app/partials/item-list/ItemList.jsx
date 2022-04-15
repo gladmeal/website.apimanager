@@ -19,21 +19,21 @@ export default class ItemList extends React.Component{
         return (
             <div className="d-flex justify-content-start container-lg item-list-maner my-5 pt-3 pb-2">
                 <div className="item-list-scroller row h-auto px-3">
-                    <table class="table">
+                    <table className="table shadow">
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
-                                { this.state.head.map( item => (
-                                    <th scope="col"> { item } </th>
+                                { this.state.head.map( ( item, index ) => (
+                                    <th scope="col" key={ `th-${ index }` }> { item } </th>
                                 ) ) }
                             </tr>
                         </thead>
                         <tbody>
-                            { this.state.body.map( item => (
-                                <tr>
-                                    <th scope="row"> { this._getId() } </th>
-                                    { item.map( _item => (
-                                        <td> { _item } </td>
+                            { this.state.body.map( ( item, index ) => (
+                                <tr key={ `tr-${ index }` }>
+                                    <th scope="row" key={ `th--${ index }` }> { this._getId() } </th>
+                                    { item.map( ( _item, _index ) => (
+                                        <td key={ `td-${ index }-${ _index }` }> { _item } </td>
                                     ) ) }
                                 </tr>
                             ) ) }

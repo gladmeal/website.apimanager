@@ -21,7 +21,25 @@ export default class HistoryFoodStuff extends React.Component{
     render() {
         return (
             <ItemList
-                head={ [ "Numero de transaction", "information", "membre", "date" ] }
+                head={ [ 
+                    'Nom',
+                    'Energie (kcal)',
+                    'Eau (g)',
+                    'Protéine (g)',
+                    'Glucide (g)',
+                    'Fibre (g)',
+                    'Cendre (g)',
+                    'Lipide (g)',
+                    'Calcuim (mg)',
+                    'Zinc (mg)',
+                    'Azote (mg)',
+                    'Fer (mg)',
+                    'Vitamine A(mg)',
+                    'Vitamine B(mg)',
+                    'Vitamine C(mg)',
+                    'Vitamine D(mg)',
+                    'Vitamine E(mg)',
+                 ] }
                 body={ this.state.data }
             ></ItemList>
         );

@@ -1,0 +1,24 @@
+@use 'src/mixins' as *;
+
+.item-list-button-container{
+    width: 100%;
+    height: 100%;
+
+    .item-list-button{
+        height: 50px;
+        width: 50px;
+        border-radius: 100%;
+        background-color: $xiketic;
+        color: $vermilion;
+        transition-duration: 0.2s;
+
+        i{
+            font-size: 18px;
+        }
+
+        &:hover{
+            background-color: $vermilion;
+            color: $xiketic;
+        }
+    }
+}

@@ -15,7 +15,7 @@
     }
 
     .item-list-scroller{
-        min-height: 300px;
+        min-height: 130px;
         min-width: 100%;
 
         table{
@@ -28,12 +28,13 @@
 
                 th:first-child{
                     max-width: 50px !important;
-                    min-width: 40px !important;
+                    min-width: 50px !important;
                 }
             }
 
             thead th{
                 line-height: 50px;
+                white-space: nowrap;
             }
 
             th, td{
