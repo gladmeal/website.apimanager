@@ -1,19 +1,14 @@
 import React from "react";
 import ItemList from "../partials/item-list/ItemList";
+import ItemListButton from "../partials/item-list-button/ItemListButton";
 
 export default class HistoryFood extends React.Component{
     constructor( props ) {
         super( props );
         this.state = {
             data: [
-                [ "0001", "ajout d'un aliment", "user 1", "10/05/2020" ],
-                [ "0002", "suppréssion d'un aliment", "user 1", "10/05/2020" ],
-                [ "0003", "ajout d'un aliment", "user 1", "10/05/2020" ],
-                [ "0004", "ajout d'un aliment", "user 1", "10/05/2020" ],
-                [ "0005", "modification d'un aliment", "user 1", "10/05/2020" ],
-                [ "0006", "suppréssion d'un aliment", "user 1", "10/05/2020" ],
-                [ "0007", "suppréssion d'un aliment", "user 1", "10/05/2020" ],
-                [ "0008", "suppréssion d'un aliment", "user 1", "10/05/2020" ],
+                [ "0001", "pilé", "plantain-haricot", "10/05/2020", "10/05/2020", <ItemListButton icon="pencil-square"/>, <ItemListButton icon="x-octagon-fill"/> ],
+                [ "0002", "sangha", "mais-folon", "10/05/2020", "10/05/2020", <ItemListButton icon="pencil-square"/>, <ItemListButton icon="x-octagon-fill"/> ],
             ]
         };
     }
@@ -21,7 +16,7 @@ export default class HistoryFood extends React.Component{
     render() {
         return (
             <ItemList
-                head={ [ "Numero de transaction", "information", "membre", "date" ] }
+                head={ [ "Clé", "Nom", "Aliments", "Création", "Remédiation", "Modifier", "Supprimer" ] }
                 body={ this.state.data }
             ></ItemList>
         );

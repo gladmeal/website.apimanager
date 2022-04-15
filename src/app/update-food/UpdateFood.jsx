@@ -18,7 +18,7 @@ export default class UpdateFood extends React.Component{
     render() {
         return (
             <Form 
-                title="Modifier la photo d'un aliment" 
+                title="Modifier la photo d'une nourriture" 
                 icon="shop"
                 onSubmit={ ( e ) => this._onFormSubmit( e ) }
             >

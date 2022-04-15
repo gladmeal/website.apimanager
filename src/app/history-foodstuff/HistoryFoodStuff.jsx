@@ -1,19 +1,14 @@
 import React from "react";
 import ItemList from "../partials/item-list/ItemList";
+import ItemListButton from "../partials/item-list-button/ItemListButton";
 
 export default class HistoryFoodStuff extends React.Component{
     constructor( props ) {
         super( props );
         this.state = {
             data: [
-                [ "0001", "ajout d'un aliment", "user 1", "10/05/2020" ],
-                [ "0002", "suppréssion d'un aliment", "user 1", "10/05/2020" ],
-                [ "0003", "ajout d'un aliment", "user 1", "10/05/2020" ],
-                [ "0004", "ajout d'un aliment", "user 1", "10/05/2020" ],
-                [ "0005", "modification d'un aliment", "user 1", "10/05/2020" ],
-                [ "0006", "suppréssion d'un aliment", "user 1", "10/05/2020" ],
-                [ "0007", "suppréssion d'un aliment", "user 1", "10/05/2020" ],
-                [ "0008", "suppréssion d'un aliment", "user 1", "10/05/2020" ],
+                [ "0001", "riz", 1.52, 12.4, 2.5, 4.5, 8.5, 1.52, 12.4, 2.5, 4.5, 8.5, 1.52, 12.4, 2.5, 1.52, 12.4, 2.5, "10/20/2021", "10/20/2021", <ItemListButton icon="pencil-square"/>, <ItemListButton icon="x-octagon-fill"/> ],
+                [ "0002", "banane", 1.52, 12.4, 2.5, 4.5, 8.5, 1.52, 12.4, 2.5, 4.5, 8.5, 1.52, 12.4, 2.5, 1.52, 12.4, 2.5, "10/20/2021", "10/20/2021", <ItemListButton icon="pencil-square"/>, <ItemListButton icon="x-octagon-fill"/> ],
             ]
         };
     }
@@ -22,6 +17,7 @@ export default class HistoryFoodStuff extends React.Component{
         return (
             <ItemList
                 head={ [ 
+                    'clé',
                     'Nom',
                     'Energie (kcal)',
                     'Eau (g)',
@@ -39,6 +35,10 @@ export default class HistoryFoodStuff extends React.Component{
                     'Vitamine C(mg)',
                     'Vitamine D(mg)',
                     'Vitamine E(mg)',
+                    'création',
+                    'remédiation',
+                    'Modifier',
+                    'Supprimer'
                  ] }
                 body={ this.state.data }
             ></ItemList>

@@ -117,8 +117,10 @@ export default class FormControl extends React.Component{
     }
 
     _modalItemClick( item ) {
-        if ( this.state.multiple ) 
-            return this._addSelected( item );
+        if ( this.state.multiple ) {
+                this._addSelected( item );
+            return this._closeModal();
+        }
         this.ref.current.value = item.value;
         this._closeModal();
         this.setState( {

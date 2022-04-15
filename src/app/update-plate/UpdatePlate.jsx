@@ -34,7 +34,7 @@ export default class UpdatePlate extends React.Component{
                     name="options"
                     type="select"
                     options={ this.state.list }
-                    label="Nourriture"
+                    label="Plat"
                     id="food"
                 />
                 <span className="mt-5"></span>

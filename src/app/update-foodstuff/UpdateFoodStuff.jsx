@@ -18,7 +18,7 @@ export default class UpdateFoodStuff extends React.Component{
     render() {
         return (
             <Form 
-                title="Modifier la photo d'un plat" 
+                title="Modifier la photo d'un aliment" 
                 icon="stickies-fill"
                 onSubmit={ ( e ) => this._onFormSubmit( e ) }
             >
@@ -34,7 +34,7 @@ export default class UpdateFoodStuff extends React.Component{
                     name="options"
                     type="select"
                     options={ this.state.list }
-                    label="Nourriture"
+                    label="Aliment"
                     id="food"
                 />
                 <span className="mt-5"></span>

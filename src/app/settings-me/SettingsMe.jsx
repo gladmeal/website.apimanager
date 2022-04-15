@@ -30,7 +30,7 @@ export default class SettingsMe extends React.Component{
                     id="password"
                 />
                 <span className="mt-5"></span>
-                <FormButton />
+                <FormButton name="modifier" />
             </Form>
         );
     }

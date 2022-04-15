@@ -4,6 +4,19 @@ import FormControl from "../partials/form-control/FormControl";
 import FormButton from "../partials/form-button/FormButton";
 
 export default class SettingsAddAdmin extends React.Component{
+    constructor( props ) {
+        super( props );
+        this.state = {
+            authorizations: [
+                { id: 1, value: 'type1' },
+                { id: 2, value: 'type2' },
+                { id: 3, value: 'type3' },
+                { id: 4, value: 'type4' },
+                { id: 5, value: 'type5' },
+            ]
+        };
+    }
+
     _onFormSubmit( e ) {
         e.preventDefault();
     }
@@ -29,8 +42,17 @@ export default class SettingsAddAdmin extends React.Component{
                     label="Mot de passe"
                     id="password"
                 />
+                <span className="mt-3"></span>
+                <FormControl 
+                    name="text"
+                    type="select"
+                    multiple={ false }
+                    label="Authorization"
+                    id="authorization"
+                    options={ this.state.authorizations }
+                />
                 <span className="mt-5"></span>
-                <FormButton />
+                <FormButton name="créer" />
             </Form>
         );
     }
