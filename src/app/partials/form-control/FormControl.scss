@@ -124,6 +124,13 @@
         i{
             font-size: 60px;
             color: $vermilion;
+            transition-duration: 0.2s;
+        }
+
+        &:hover{
+            i{
+                font-size: 50px;
+            }
         }
 
         img{

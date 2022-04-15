@@ -6,6 +6,7 @@ export default class PageItem extends React.Component{
     title = 'My title';
     description = 'My short description';
     icon = 'columns-gap';
+    
     constructor( props ) {
       super( props );
       this.title = props.title || this.title;
@@ -21,7 +22,7 @@ export default class PageItem extends React.Component{
           </div>
           <div className="page-item-body d-flex flex-column justify-content-center align-items-center pb-3 pt-5">
             <h4 className="text-truncate page-item-title"> { this.title } </h4>
-            <p> { this.description } </p>
+            <p className='text-center'> { this.description } </p>
           </div>
         </Link>
       )

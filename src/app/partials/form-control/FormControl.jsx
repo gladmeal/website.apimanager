@@ -36,13 +36,17 @@ export default class FormControl extends React.Component{
         this.state = {
             label: this.props.label || 'label',
             modalVisible: false,
+            multiple: this.props.multiple !== undefined ? this.props.multiple : true,
             file: undefined,
-            dataUrl: '',
+            value: undefined,
+            dataUrl: this.props.url || '',
             error: this.props.error || '',
             icon: this.props.icon || 'image-fill',
             selectedVisible: true,
             initialOptions: this.props.options || [ ],
-            selected: []
+            selected: [],
+            evalableExtension: this.props.extensions || [ ],
+            maxSize: this.props.maxSize || 3.5
         };
     }
 
@@ -53,9 +57,9 @@ export default class FormControl extends React.Component{
     }
 
     getValue() {
-        if ( this.props.type === 'select' ) 
-            return this.state.selected;
-        return this.ref.current.value;
+        return this.props.type === 'select' ? this.state.selected : (
+            this.props.type === 'file' ? this.state.file : this.state.value
+        );
     }
 
     _hideSelect() {
@@ -113,18 +117,50 @@ export default class FormControl extends React.Component{
     }
 
     _modalItemClick( item ) {
+        if ( this.state.multiple ) 
+            return this._addSelected( item );
+        this.ref.current.value = item.value;
         this._closeModal();
-        this._addSelected( item );
+        this.setState( {
+            value: item.id
+        } );
+    }
+
+    _seletedInput( e ) {
+        e.preventDefault();
+        e.stopPropagation();
+    } 
+
+    _verifyFileInfos( ex, size ) {
+        if ( size >= this.state.maxSize ) {
+            this.setState( {
+                error: `File is too heavy`
+            } );
+            return false;
+        }
+
+        for( const _ex of this.state.evalableExtension ) {
+            if ( _ex.toLowerCase() === ex.toLowerCase() )
+                return true; 
+        }
+
+        this.setState( {
+            error: 'Invalid file extension'
+        } );
+        
+        return false;
     }
 
     _verifyFile( file, url = '' ) {
         const 
             ex = file.name.split(  '.' ).pop(),
             size = file.size / 1024 / 1024;
-            console.log( ex, size );
-        this.setState( {
-            dataUrl: url
-        } );
+        if ( this._verifyFileInfos( ex, size ) ) {
+            this.setState( {
+                dataUrl: url,
+                error: ''
+            } );
+        }
     }
 
     _onChange( context ) {
@@ -150,6 +186,12 @@ export default class FormControl extends React.Component{
                     } );
             reader.readAsDataURL( file );
         }
+    }
+
+    _onInput( e ) {
+        this.setState( {
+            value: e.target.value
+        } );
     }
 
     render() {
@@ -197,6 +239,10 @@ export default class FormControl extends React.Component{
                             className={ `form-control ${ this.props.className || ''}`}
                             placeholder={ this.props.placeholder || 'Az:' } 
                             onClick={ () => this._openModal() }
+                            onKeyUp={ () => this._seletedInput }
+                            onKeyDown={ () => this._seletedInput }
+                            onInput={ () => this._seletedInput }
+                            ref={ this.ref }
                         />
                         <label htmlFor={ this.props.id }>
                             { this.props.label }
@@ -235,6 +281,7 @@ export default class FormControl extends React.Component{
                     { ...this.props } 
                     className={ `form-control ${ this.props.className || ''}`}
                     placeholder={ this.props.placeholder || 'Az:' } 
+                    onInput={ e => this._onInput( e ) }
                     ref={ this.ref }
                 />
                 <label htmlFor={ this.props.id }>

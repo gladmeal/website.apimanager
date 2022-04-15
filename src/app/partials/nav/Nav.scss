@@ -9,8 +9,10 @@
 
     .navbar-part{
         &.first{
-            .navbar-brand{
+            .navbar-brand, .link{
                 color: $vermilion;
+                text-decoration: none;
+
                 i{
                     font-size: 25px;
                 }

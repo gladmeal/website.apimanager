@@ -10,7 +10,7 @@ export default class UpdateIndex extends React.Component{
                         <PageItem
                             to="/account/update/foodstuff"
                             title="Aliment"
-                            description="Mettre à jour un Aliment"
+                            description="Modifier la photo d'un Aliment"
                             icon="stickies-fill"
                         />
                     </div>
@@ -18,7 +18,7 @@ export default class UpdateIndex extends React.Component{
                         <PageItem
                             to="/account/update/food"
                             title="Nourriture"
-                            description="Mettre à jour une Nourriture"
+                            description="Modifier la photo d'une Nourriture"
                             icon="shop"
                         />
                     </div>
@@ -26,7 +26,8 @@ export default class UpdateIndex extends React.Component{
                         <PageItem
                             to="/account/update/plate"
                             title="Plat"
-                            description="Mettre à jour un plat"
+                            description="Modifier la photo"
+                            icon="layout-wtf"
                         />
                     </div>
                 </div>

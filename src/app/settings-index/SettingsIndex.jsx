@@ -32,7 +32,7 @@ export default class SettingsIndex extends React.Component{
                     </div>
                     <div className="col-12 col-sm-6 col-md-4 col-lg-3">
                         <PageItem
-                            to="/account/settings/user"
+                            to="/account/settings/add-user"
                             title="Admin"
                             icon="person-circle"
                             description="Ajouter un utilisateur"

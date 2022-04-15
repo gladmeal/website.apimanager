@@ -1,6 +1,7 @@
 import React from "react";
 import './Nav.scss';
 import NavItem from './../nav-item/NavItem';
+import { Link } from "react-router-dom";
 
 export default class Nav extends React.Component{
     constructor( props ) {
@@ -39,7 +40,10 @@ export default class Nav extends React.Component{
                 <div className="d-flex navbar-part first align-items-center justify-content-between">
                     <div className="navbar-brand d-flex align-items-center">
                         <i className="bi bi-terminal-fill"></i>
-                        <p className="m-0 ms-3"> Glad Meal Admin <span className="ms-3 d-none d-md-inline-block"> | </span> </p>
+                        <p className="m-0 ms-3">
+                            <Link to={ 'home' } className="link"> Glad Meal Admin </Link>
+                            <span className="ms-3 d-none d-md-inline-block"> | </span> 
+                        </p>
                     </div>
                     <div 
                         className="navbar-button d-flex d-md-none justify-content-center align-items-center"

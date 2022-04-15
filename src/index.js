@@ -14,18 +14,30 @@ import Home from './app/home/Home';
 
 import Settings from './app/settings/Settings';
 import SettingsIndex from './app/settings-index/SettingsIndex';
+import SettingsAddAdmin from './app/settings-add-admin/SettingsAddAdmin';
+import SettingsToken from './app/settings-token/SettingsToken';
+import SettingsUser from './app/settings-user/SettingsUser';
+import SettingsMe from './app/settings-me/SettingsMe';
 
 import Add from './app/add/Add';
 import AddIndex from './app/add-index/AddIndex';
 import AddFood from './app/add-food/AddFood';
 import AddFoodStuff from './app/add-foodstuff/AddFoodStuff';
 import AddPlate from './app/add-plate/AddPlate';
+import AddToken from './app/add-token/AddToken';
 
 import History from './app/history/History';
 import HistoryIndex from './app/history-index/HistoryIndex';
+import HistoryTransaction from './app/history-transaction/HistoryTransaction';
+import HistoryFood from './app/history-food/HistoryFood';
+import HistoryFoodStuff from './app/history-foodstuff/HistoryFoodStuff';
+import HistoryPlate from './app/history-plate/HistoryPlate';
 
 import Update from './app/update/Update';
 import UpdateIndex from './app/update-index/UpdateIndex';
+import UpdatePlate from './app/update-plate/UpdatePlate';
+import UpdateFood from './app/update-food/UpdateFood';
+import UpdateFoodStuff from './app/update-foodstuff/UpdateFoodStuff';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -41,15 +53,27 @@ ReactDOM.render(
             <Route path='food' element={ <AddFood /> } />
             <Route path='foodstuff' element={ <AddFoodStuff /> } />
             <Route path='plate' element={ <AddPlate /> } />
+            <Route path='token' element={ <AddToken /> } />
           </Route>
           <Route path='history' element={ <History /> }>
             <Route index element={ <HistoryIndex /> } />
+            <Route path='transaction' element={ <HistoryTransaction /> } />
+            <Route path='food' element={ <HistoryFood /> } />
+            <Route path='foodstuff' element={ <HistoryFoodStuff /> } />
+            <Route path='plate' element={ <HistoryPlate /> } />
           </Route>
           <Route path='settings' element={ <Settings /> }>
             <Route index element={ <SettingsIndex /> } />
+            <Route path='add-user' element={ <SettingsAddAdmin /> } />
+            <Route path='token' element={ <SettingsToken /> } />
+            <Route path='user' element={ <SettingsUser /> } />
+            <Route path='me' element={ <SettingsMe /> } />
           </Route>
           <Route path='update' element={ <Update /> }>
             <Route index element={ <UpdateIndex /> } />
+            <Route path="plate" element={ <UpdatePlate /> } />
+            <Route path="food" element={ <UpdateFood /> } />
+            <Route path="foodstuff" element={ <UpdateFoodStuff /> } />
           </Route>
           <Route path='*' element={ <AccountError /> } />
         </Route>

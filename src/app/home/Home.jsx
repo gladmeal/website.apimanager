@@ -1,5 +1,4 @@
 import React from "react";
-import './Home.scss';
 import PageItem from "../partials/page-item/PageItem";
 
 export default class Home extends React.Component{
@@ -84,6 +83,22 @@ export default class Home extends React.Component{
                             title="Plat"
                             icon="grid-1x2-fill"
                             description="Liste des plats"
+                        />
+                    </div>
+                    <div className="col-12 col-sm-6 col-md-4 col-lg-3">
+                        <PageItem
+                            to="/account/settings/user"
+                            title="Utilisateur"
+                            icon="people-fill"
+                            description="Liste des utilisateurs"
+                        />
+                    </div>
+                    <div className="col-12 col-sm-6 col-md-4 col-lg-3">
+                        <PageItem
+                            to="/account/settings/add-user"
+                            title="Admin"
+                            icon="person-circle"
+                            description="Ajouter un utilisateur"
                         />
                     </div>
                 </div>

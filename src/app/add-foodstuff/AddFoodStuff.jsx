@@ -6,13 +6,13 @@ import FormButton from "../partials/form-button/FormButton";
 export default class AddFoodStuff extends React.Component{
     _onFormSubmit( e ) {
         e.preventDefault();
-        console.log( this.ref.current.getValue() );
     }
 
     render() {
         return (
             <Form 
                 title="Ajouter une nouriture" 
+                icon="stickies-fill"
                 onSubmit={ ( e ) => this._onFormSubmit( e ) }
             >
                 <span className="mt-3"></span>

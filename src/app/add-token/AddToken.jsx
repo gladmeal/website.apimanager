@@ -3,17 +3,17 @@ import Form from '../partials/form/Form';
 import FormControl from "../partials/form-control/FormControl";
 import FormButton from "../partials/form-button/FormButton";
 
-export default class AddFood extends React.Component{
+export default class AddToken extends React.Component{
     constructor( props ) {
         super( props );
         this.state = {
-            list: [
-                { id: 1, value: 'bread' }, 
-                { id: 2, value: 'wine' }, 
-                { id: 3, value: 'rice' }, 
-                { id: 4, value: 'mango' }, 
-                { id: 5, value: 'banana' }, 
-                { id: 6, value: 'cassava' }
+            plans: [
+                { id: 1, value: 'plan 1 (40)' }, 
+                { id: 2, value: 'plan 2 (100)' }, 
+                { id: 3, value: 'plan 3 (200)' }, 
+                { id: 4, value: 'plan 4 (500)' }, 
+                { id: 5, value: 'plan 5 (1500)' }, 
+                { id: 6, value: 'plan 6 (infini)' }
             ]
         };
     }
@@ -25,27 +25,21 @@ export default class AddFood extends React.Component{
     render() {
         return (
             <Form 
-                title="Ajouter une nouriture" 
-                icon="shop"
+                title="Ajouter un token" 
+                icon="shield-fill-check"
                 onSubmit={ ( e ) => this._onFormSubmit( e ) }
             >
                 <span className="mt-3"></span>
                 <FormControl 
-                    name="name"
-                    type="text"
-                    label="Nom de la nourriture"
-                    id="name"
-                />
-                <span className="mt-3"></span>
-                <FormControl 
+                    multiple={ false }
                     name="options"
                     type="select"
-                    options={ this.state.list }
-                    label="Aliments"
+                    options={ this.state.plans }
+                    label="Plan"
                     id="foodstuff"
                 />
                 <span className="mt-5"></span>
-                <FormButton />
+                <FormButton name="créer" />
             </Form>
         );
     }
