@@ -212,8 +212,8 @@ export default class App extends React.Component{
                             <p className="m-0 mt-3 text-center"> Activité du token </p>
                         </div>
                         <div className="d-flex flex-column justify-content-center align-items-center part-page-form mb-4">
-                            <input type="text" name="token" className='ps-2' placeholder='your token...' id="token" />
-                            <input type="submit" value="verify" className='mt-2 px-5 py-3 rounded-pill' id="submit" />
+                            <input type="text" name="token" className='ps-2' placeholder='votre token...' id="token" />
+                            <input type="submit" value="voir" className='mt-2 px-5 py-3 rounded-pill' id="submit" />
                         </div>
                     </section>
                     <section className='page-part py-5 page-part-4 mt-5 d-flex flex-column justify-content-center align-items-center' id="token-data">

@@ -1,0 +1,50 @@
+@use 'src/mixins' as *;
+
+.content-doc-list{
+    max-width: 700px !important;
+    background-color: $cultured-2;
+    border-radius: 5px;
+
+    .doc-item-title{
+        color: $xiketic;
+
+        i{
+            font-size: 25px;
+        }
+
+        p{
+            font-size: 1.3em;
+            width: 100%;
+            overflow: hidden;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            font-weight: 900;
+            word-wrap: break-word;
+            @include text-break;
+        }
+    }
+
+    hr{
+        background-color: $xiketic;
+        opacity: 1;
+    }
+
+    .doc-item{
+        p{
+            line-height: 28px;
+            letter-spacing: 0.07em;
+            color: $xiketic;
+        }
+
+        p span, ul span{
+            color: $vermilion;
+        }
+
+        code{
+            background-color: $xiketic;
+            padding: 15px;
+            border-radius: 8px;
+            color: $cultured;
+        }
+    }
+}

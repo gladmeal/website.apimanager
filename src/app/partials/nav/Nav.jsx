@@ -37,7 +37,7 @@ export default class Nav extends React.Component{
     render() {
         return (
             <nav 
-                className={ `w-100 px-3 py-2 navbar d-flex align-items-center shadow border-bottom ${ this.props.className }` }
+                className={ `w-100 px-3 py-2 navbar d-flex flex-column flex-md-row align-items-center shadow border-bottom ${ this.props.className }` }
             >
                 <div className="d-flex navbar-part first align-items-center justify-content-between">
                     <div className="navbar-brand d-flex align-items-center">
