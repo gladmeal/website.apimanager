@@ -4,6 +4,7 @@ import HistoryFoodStuff from "../history-foodstuff/HistoryFoodStuff";
 import ItemListButton from "../partials/item-list-button/ItemListButton";
 import ItemListModal from "./../partials/item-list-modal/ItemListModal";
 import ItemListImage from "../partials/item-list-image/ItemListImage";
+import Loader from "../partials/loader/Loader";
 
 
 export default class HistoryFood extends HistoryFoodStuff{
@@ -40,7 +41,14 @@ export default class HistoryFood extends HistoryFoodStuff{
                     title="nourritures"
                     head={ [ "Image", "Nom", "Aliments", "Infos", "Modifier", "Supprimer" ] }
                     body={ this.state.data }
+                    selected={ 0 }
+                    options={ [
+                        { id: 0, value: 'Original' },
+                        { id: 1, value: 'Utilisateur' },
+                    ] }
+                    onSortMethodChange={ item => console.log( item ) }
                 ></ItemList>
+                <Loader visible={ false } title="chargment..." />
             </React.Fragment>
         );
     }

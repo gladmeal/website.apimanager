@@ -20,6 +20,53 @@
         text-transform: uppercase;
         letter-spacing: 0.12em;
     }
+
+    @media screen and ( max-width: 768px ) {
+        .item-list-icon{
+            height: 45px;
+            width: 45px;
+
+            i{
+                font-size: 20px;
+            }
+        }
+
+        p{
+            font-size: 1.1em;
+        }
+    }
+}
+
+.item-list-sort{
+    .item-list-sort-brand{
+        font-weight: 600;
+        color: $xiketic;
+        letter-spacing: 0.15em;
+
+        i{
+            font-size: 25px;
+        }
+    }
+
+    .content-form-sort{
+        max-width: 150px;
+
+        input{
+            height: 45px;
+
+            &:focus{
+                box-shadow: none !important;
+                border-color: $xiketic !important;
+                +label{
+                    color: $xiketic;
+                }
+            }
+
+            +label{
+                padding-top: 10px;
+            }
+        }
+    }
 }
 
 .item-list-manager{

@@ -18,7 +18,6 @@ export default class HistoryFoodStuff extends React.Component{
     }
 
     _openModal() {
-        console.log( 'ici' );
         this.setState( {
             modal: true
         } );

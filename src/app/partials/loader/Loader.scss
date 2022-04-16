@@ -1,0 +1,20 @@
+@use 'src/mixins' as *;
+
+.loader{
+    .spinner-border{
+        color: $vermilion !important;
+    }
+
+    p{
+        font-size: 0.95em;
+        color: $vermilion;
+        text-transform: capitalize;
+        font-weight: 600;
+    }
+
+    &.dark{
+        .spinner-border, p{
+            color: $xiketic !important;
+        }
+    }
+}

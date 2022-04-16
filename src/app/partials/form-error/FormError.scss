@@ -1,0 +1,9 @@
+@use 'src/mixins' as *;
+
+.form-error{
+    p{
+        font-size: 0.95em;
+        font-weight: 900;
+        letter-spacing: 0.1em;
+    }
+}

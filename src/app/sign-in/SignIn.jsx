@@ -1,6 +1,8 @@
 import React from 'react';
 import './SignIn.scss';
 import { Navigate } from 'react-router-dom';
+import Loader from '../partials/loader/Loader';
+import FormError from '../partials/form-error/FormError';
 
 export default class SignIn extends React.Component{
     constructor( props ) {
@@ -61,6 +63,8 @@ export default class SignIn extends React.Component{
                         />
                         <label htmlFor="password" className="form-floating-label ps-3"> Password </label>
                     </div>
+                    <Loader visible={ false } className="mt-4 dark" title="chargment..." />
+                    <FormError className="mt-4 dark" title="" />
                     <div className="content-submit d-flex justify-content-center align-items-center pt-md-4 w-100">
                         <input 
                             type="submit" 

@@ -54,6 +54,14 @@ export default class FormControl extends React.Component{
         if ( !this.state.initialOptions.length ) {
             this._hideSelect();
         }
+
+        if ( !this.state.multiple ) {
+            if ( this.props.selected !== undefined ) {
+                const 
+                    item = this.state.initialOptions.find( item => item.id === this.props.selected );
+                if ( this.ref ) this.ref.current.value = item.value;
+            }
+        }
     }
 
     getValue() {
@@ -126,6 +134,10 @@ export default class FormControl extends React.Component{
         this.setState( {
             value: item.id
         } );
+
+        if ( typeof this.props.onChange === 'function' ) {
+            this.props.onChange( item );
+        }
     }
 
     _seletedInput( e ) {
@@ -162,6 +174,11 @@ export default class FormControl extends React.Component{
                 dataUrl: url,
                 error: ''
             } );
+
+            if ( typeof this.props.onChange === 'function' )
+                this.props.onChange( {
+                    file, url
+                } );
         }
     }
 
@@ -226,18 +243,24 @@ export default class FormControl extends React.Component{
                             </div>
                         </div>
                     </div>
-                    <div className="w-100 d-flex align-items-center form-control-content-seleted mb-3">
-                        { this.state.selected.length > 0 && this.state.selected.map( item => (
-                            <FormControlSelected 
-                                name={ item.value } 
-                                key={ item.id }
-                                onClose={ () => this._removeSelected( item ) }
-                            />
-                        ) ) }
-                    </div>
+                    { this.state.multiple && (
+                        <React.Fragment>
+                            <div className="w-100 d-flex align-items-center form-control-content-seleted mb-3">
+                                { this.state.selected.length > 0 && this.state.selected.map( item => (
+                                    <FormControlSelected 
+                                        name={ item.value } 
+                                        key={ item.id }
+                                        onClose={ () => this._removeSelected( item ) }
+                                    />
+                                ) ) }
+                            </div>
+                        </React.Fragment>
+                    ) }
                     <div className="form-floating form-control-container">
                         <input 
-                            { ...this.props } 
+                            type={ this.props.type || 'text' }
+                            value={ this.props.value }
+                            id={ this.props.id }
                             className={ `form-control ${ this.props.className || ''}`}
                             placeholder={ this.props.placeholder || 'Az:' } 
                             onClick={ () => this._openModal() }
@@ -280,10 +303,13 @@ export default class FormControl extends React.Component{
         return (
             <div className="form-floating form-control-container">
                 <input 
-                    { ...this.props } 
                     className={ `form-control ${ this.props.className || ''}`}
+                    type={ this.props.type || 'text' }
+                    value={ this.props.value }
+                    id={ this.props.id }
                     placeholder={ this.props.placeholder || 'Az:' } 
                     onInput={ e => this._onInput( e ) }
+                    onChange={ this.props.onChange }
                     ref={ this.ref }
                 />
                 <label htmlFor={ this.props.id }>
