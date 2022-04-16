@@ -2,8 +2,9 @@ import React from "react";
 import Form from '../partials/form/Form';
 import FormControl from "../partials/form-control/FormControl";
 import FormButton from "../partials/form-button/FormButton";
+import FormState from "../partials/form-state/FormState";
 
-export default class AddFoodStuff extends React.Component{
+export default class AddFoodStuff extends FormState{
     _onFormSubmit( e ) {
         e.preventDefault();
     }

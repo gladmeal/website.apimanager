@@ -2,8 +2,9 @@ import React from "react";
 import Form from '../partials/form/Form';
 import FormControl from "../partials/form-control/FormControl";
 import FormButton from "../partials/form-button/FormButton";
+import FormState from "../partials/form-state/FormState";
 
-export default class SettingsAddAdmin extends React.Component{
+export default class SettingsAddAdmin extends FormState{
     constructor( props ) {
         super( props );
         this.state = {
@@ -30,6 +31,13 @@ export default class SettingsAddAdmin extends React.Component{
             >
                 <span className="mt-3"></span>
                 <FormControl 
+                    name="name"
+                    type="text"
+                    label="Nom de l'administrateur"
+                    id="name"
+                />
+                <span className="mt-3"></span>
+                <FormControl 
                     name="email"
                     type="email"
                     label="Email"
@@ -44,7 +52,7 @@ export default class SettingsAddAdmin extends React.Component{
                 />
                 <span className="mt-3"></span>
                 <FormControl 
-                    name="text"
+                    name="authorization"
                     type="select"
                     multiple={ false }
                     label="Authorization"

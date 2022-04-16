@@ -1,0 +1,24 @@
+@use 'src/mixins' as *;
+
+.item-list-button-container{
+    .item-list-button.item-list-image{
+        overflow: hidden;
+
+        i{
+            font-size: 18px;
+        }
+
+        img{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            left: 0px;
+            top: 0px;
+        }
+
+        &:hover{
+            background-color: $xiketic !important;
+            color: $vermilion !important;
+        }
+    }
+}

@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import App from './app/App';
+import DocsBase from './app/docs-base/DocsBase';
 import SingIn from './app/sign-in/SignIn';
 
 import AccountBase from './app/account-base/AccountBase';
@@ -18,6 +19,7 @@ import SettingsAddAdmin from './app/settings-add-admin/SettingsAddAdmin';
 import SettingsToken from './app/settings-token/SettingsToken';
 import SettingsUser from './app/settings-user/SettingsUser';
 import SettingsMe from './app/settings-me/SettingsMe';
+import SettingsTokenData from './app/settings-token-data/SettingsTokenData';
 
 import Add from './app/add/Add';
 import AddIndex from './app/add-index/AddIndex';
@@ -45,6 +47,7 @@ ReactDOM.render(
       <Routes>
         <Route index element={ <App /> } />
         <Route path='sign-in' element={ <SingIn /> } />
+        <Route path='docs' element={ <DocsBase /> } />
         <Route path='account' element={ <AccountBase /> }>
           <Route index element={ <Home /> } />
           <Route path='home' element={ <Home /> } />
@@ -66,6 +69,7 @@ ReactDOM.render(
             <Route index element={ <SettingsIndex /> } />
             <Route path='add-user' element={ <SettingsAddAdmin /> } />
             <Route path='token' element={ <SettingsToken /> } />
+            <Route path='token-data' element={ <SettingsTokenData /> } />
             <Route path='user' element={ <SettingsUser /> } />
             <Route path='me' element={ <SettingsMe /> } />
           </Route>
@@ -77,6 +81,7 @@ ReactDOM.render(
           </Route>
           <Route path='*' element={ <AccountError /> } />
         </Route>
+        <Route path='*' element={ <AccountError /> } />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,

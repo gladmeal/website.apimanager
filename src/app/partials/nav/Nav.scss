@@ -7,6 +7,10 @@
     top: 0px;
     z-index: 25;
 
+    &.not-border{
+        border-bottom: none !important;
+    }
+
     .navbar-part{
         &.first{
             .navbar-brand, .link{

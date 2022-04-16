@@ -2,7 +2,7 @@ import React from "react";
 import './NavItem.scss';
 import { NavLink } from 'react-router-dom';
 
-export default class Nav extends React.Component{
+export default class NavItem extends React.Component{
     _isActive( isActive ) {
         const style = 'navbar-link ';
         if ( isActive ) 

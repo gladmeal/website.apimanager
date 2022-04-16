@@ -31,14 +31,6 @@ export default class Home extends React.Component{
                     </div>
                     <div className="col-12 col-sm-6 col-md-4 col-lg-3">
                         <PageItem
-                            to="/account/add/user"
-                            title="User"
-                            icon="person-circle"
-                            description="Ajouter un utilisateur"
-                        />
-                    </div>
-                    <div className="col-12 col-sm-6 col-md-4 col-lg-3">
-                        <PageItem
                             to="/account/history/transaction"
                             title="Transaction"
                             description="Liste des transactions"

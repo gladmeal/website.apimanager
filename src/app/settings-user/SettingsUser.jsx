@@ -7,8 +7,8 @@ export default class SettingsUser extends React.Component{
         super( props );
         this.state = {
             data: [
-                [ "0001", "ajout d'un aliment", "user 1", "10/05/2020", <ItemListButton icon="pencil-square"/>, <ItemListButton icon="x-octagon-fill"/> ],
-                [ "0002", "suppréssion d'un aliment", "user 1", "10/05/2020", <ItemListButton icon="pencil-square"/>, <ItemListButton icon="x-octagon-fill"/> ]
+                [ "0001", "Jean Jacque", "jeam.jacque@gmail.com", "10/05/2020", 1, <ItemListButton icon="pencil-square"/>, <ItemListButton icon="x-octagon-fill"/> ],
+                [ "0002", "Marie Curie", "marie.curie@gmail.com", "10/05/2020", 3, <ItemListButton icon="pencil-square"/>, <ItemListButton icon="x-octagon-fill"/> ]
             ]
         };
     }
@@ -16,8 +16,10 @@ export default class SettingsUser extends React.Component{
     render() {
         return (
             <ItemList
-                head={ [ "Numero utilisateur", "email", "date de création", "type", "modifier", "supprimer" ] }
+                head={ [ "Numero utilisateur", "nom", "email", "date de création", "type", "modifier", "supprimer" ] }
                 body={ this.state.data }
+                icon="people-fill"
+                title="administrateurs"
             ></ItemList>
         );
     }

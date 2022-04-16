@@ -23,6 +23,8 @@ export default class HistoryTransaction extends React.Component{
             <ItemList
                 head={ [ "Numero de transaction", "information", "membre", "date" ] }
                 body={ this.state.data }
+                icon="signpost-2-fill"
+                title="transactions"
             ></ItemList>
         );
     }

@@ -1,28 +1,6 @@
 @use 'src/mixins' as *;
 
-.item-list-head{
-    .item-list-icon{
-        height: 65px;
-        width: 65px;
-        border-radius: 100%;
-        background-color: $xiketic;
-        color: $vermilion;
-
-        i{
-            font-size: 25px;
-        }
-    }
-
-    p{
-        font-size: 1.3em;
-        color: $vermilion;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 0.12em;
-    }
-}
-
-.item-list-manager{
+.item-list-maner{
     overflow: auto;
 
     &::-webkit-scrollbar{
