@@ -28,10 +28,11 @@
         background-color: $cultured;
         border-radius: 8px;
         max-width: 450px;
+        border: 1px solid $eerie-black !important;
 
         .form-modal-head{
             width: 100%;
-            border-bottom-color: $cultured-2;
+            border-bottom-color: $eerie-black !important;
 
             .form-modal-head-brand{
                 flex: 1;
@@ -75,7 +76,7 @@
 
 .form-control-modal-item{
     font-size: 1.25em;
-    color: $eerie-black;
+    color: $xiketic;
     text-transform: capitalize;
     transition-duration: 0.2s;
     border-radius: 5px;

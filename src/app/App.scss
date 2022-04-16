@@ -11,21 +11,134 @@
 }
 
 .page-part{
-    p{
+    > p{
         background-color: $vermilion;
-        color: $cultured;
-        font-size: 2.5em;
+        color: $xiketic;
+        font-size: 2.3em;
         text-transform: uppercase;
-        letter-spacing: 0.12em;
-        font-weight: 600;
-        clip-path: polygon( 0% 5%, 0% 40%, 10% 30%, 0% 55%, 5% 100%, 90% 100%, 100% 90%, 100% 60%, 95% 50%, 100% 40%, 100% 20%, 95% 0%, 0% 0%  );
+        letter-spacing: 0.15em;
+        word-wrap: break-word;
+        @include text-break;
+        font-weight: 900;
+        clip-path: polygon( 5% 0%, 0% 5%, 0% 40%, 10% 30%, 0% 55%, 5% 100%, 90% 100%, 100% 90%, 100% 60%, 95% 50%, 100% 40%, 100% 20%, 95% 0%, 5% 0%  );
 
         span{
             font-family: plento;
+            user-select: none;
+
+            i{
+                background-color: $xiketic;
+                height: 85px;
+                min-width: 85px;
+                width: 85px;
+                border-radius: 100%;
+                color: $vermilion;
+                font-size: 30px;
+            }
+
+            span{
+                word-wrap: break-word;
+            }
         }
 
         @media screen and ( max-width: 768px ) {
             font-size: 1.8em;
         }
+    }
+
+    .page-part-title{
+        color: $vermilion;
+
+        i{
+            font-size: 60px;
+        }
+
+        p{
+            font-size: 1.8em;
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+            font-weight: 900;
+        }
+    }
+
+    .page-part-item{
+        min-height: 150px;
+        border-radius: 6px;
+        border: 1px solid $vermilion;
+        overflow: hidden;
+
+        .page-part-item-head{
+            background-color: $vermilion;
+            color: $xiketic;
+            font-weight: 900;
+
+            i{
+                font-size: 30px;
+            }
+
+            p{
+                font-size: 1.2em;
+                letter-spacing: 0.12em;
+            }
+        }
+
+        .page-part-item-body{
+            .page-part-item-body-item{
+                color: $vermilion;
+                i{
+                    font-size: 30px;
+                }
+
+                p{
+                    font-size: 1.1em;
+                    text-transform: uppercase;
+                    font-weight: 600;
+                    letter-spacing: 0.12em;
+                }
+            }
+        }
+    }
+
+    &.page-part-3{
+        .page-part-title{
+            color: $cultured-2;
+        }
+
+        .part-page-form{
+            height: 300px;
+            width: 300px;
+            background-color: $cultured-2;
+            border-radius: 100%;
+
+            input[type=text]{
+                height: 45px;
+                border: none;
+                border-radius: 0px;
+                width: calc( 100% - 80px );
+                background-color: transparent;
+                outline: none;
+                border-bottom: 2px solid $xiketic;
+
+                &::placeholder{
+                    color: $xiketic;
+                    opacity: 0.8;
+                }
+            }
+
+            #submit{
+                background-color: $xiketic;
+                color: $cultured-2;
+                border: none;
+                text-transform: uppercase;
+                letter-spacing: 0.12em;
+                font-weight: 600;
+                font-size: 0.85em;
+                top: 30px;
+            }
+        }
+    }
+
+    &.page-part-4{
+        background-color: $cultured-2;
     }
 }
