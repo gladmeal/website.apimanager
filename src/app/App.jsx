@@ -3,6 +3,10 @@ import './App.scss';
 import Page from './partials/page/Page';
 import MainNav from './partials/main-nav/MainNav';
 import SettingsTokenData from './settings-token-data/SettingsTokenData';
+import axios from 'axios';
+
+axios.defaults.baseURL = 'https://gladmeal.herokuapp.com/';
+axios.defaults.withCredentials = false;
 
 export default class App extends React.Component{
     render() {
