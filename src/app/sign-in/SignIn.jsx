@@ -3,14 +3,19 @@ import './SignIn.scss';
 import { Navigate } from 'react-router-dom';
 import Loader from '../partials/loader/Loader';
 import FormError from '../partials/form-error/FormError';
+import axios from 'axios';
+import { setProfile } from '../../store/reducers/profile';
+import { connect } from 'react-redux';
 
-export default class SignIn extends React.Component{
+class SignIn extends React.Component{
     constructor( props ) {
         super( props );
         this.state  = {
             email: '',
             password: '',
-            navigate: false
+            navigate: false,
+            isLoading: false,
+            error: ''
         };
 
         this._submitClicked.bind( this );
@@ -21,9 +26,40 @@ export default class SignIn extends React.Component{
     }
 
     _submitClicked() {
+        if ( this.state.email && this.state.password ) {
+            return this.setState( {
+                isLoading: true,
+                error: ''
+            }, () => {
+                return axios.post( 'api/admin/login', {
+                    email: this.state.email,
+                    password: this.state.password
+                } ).then( ( { data } ) => {
+                    this.props.setProfile( {
+                        role: data.role,
+                        email: data.email,
+                        name: data.name,
+                        token: data.token
+                    } );
+                    return this.setState( {
+                        isLoading: false,
+                        navigate: true
+                    } );
+                } ).catch( ( { response: { data } } ) => {
+                    return this.setState( {
+                        isLoading: false,
+                        error: data.msg
+                    } );
+                } )
+            } );
+        }
+        this.setState( { error: 'invalid field' } );
+    }
+
+    _setVal( e ) {
         this.setState( {
-            navigate: true
-        } )
+            [ e.target.name ]: e.target.value
+        } );
     }
 
     render() {
@@ -49,6 +85,7 @@ export default class SignIn extends React.Component{
                             placeholder='Az:' 
                             id="email" 
                             autoComplete='off'
+                            onInput={ e => this._setVal( e ) }
                         />
                         <label htmlFor="email" className="form-floating-label ps-3"> Email </label>
                     </div>
@@ -60,11 +97,12 @@ export default class SignIn extends React.Component{
                             placeholder='Az:' 
                             id="password"
                             autoComplete='off' 
+                            onInput={ e => this._setVal( e ) }
                         />
                         <label htmlFor="password" className="form-floating-label ps-3"> Password </label>
                     </div>
-                    <Loader visible={ false } className="mt-4 dark" title="chargment..." />
-                    <FormError className="mt-4 dark" title="" />
+                    <Loader visible={ this.state.isLoading } className="mt-4 dark" title="chargment..." />
+                    <FormError className="mt-4 dark" title={ this.state.error } />
                     <div className="content-submit d-flex justify-content-center align-items-center pt-md-4 w-100">
                         <input 
                             type="submit" 
@@ -78,3 +116,5 @@ export default class SignIn extends React.Component{
         );
     }
 };
+
+export default connect( null, { setProfile } )( SignIn ); 

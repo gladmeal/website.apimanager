@@ -3,12 +3,28 @@ import './App.scss';
 import Page from './partials/page/Page';
 import MainNav from './partials/main-nav/MainNav';
 import SettingsTokenData from './settings-token-data/SettingsTokenData';
-import axios from 'axios';
+import FormState from './partials/form-state/FormState';
+import getURL from 'get-url-parts';
+import { setProfile, getState, setRole } from '../store/reducers/profile';
+import { connect } from 'react-redux';
 
-axios.defaults.baseURL = 'https://gladmeal.herokuapp.com/';
-axios.defaults.withCredentials = false;
+class App extends FormState{
+    _onInput( e ) {
+        const 
+            val =  e.target.value;
+        if ( val ) {
+            this.setState( {
+                token: val
+            } );
+        }
+    }
 
-export default class App extends React.Component{
+    _onClick() {
+        if ( this.state.token ) {
+            window.location = getURL.origin().concat( `?token=${this.state.token}#token-data` );
+        }
+    }
+
     render() {
         return (
             <Page>
@@ -216,17 +232,34 @@ export default class App extends React.Component{
                             <p className="m-0 mt-3 text-center"> Activité du token </p>
                         </div>
                         <div className="d-flex flex-column justify-content-center align-items-center part-page-form mb-4">
-                            <input type="text" name="token" className='ps-2' placeholder='votre token...' id="token" />
-                            <input type="submit" value="voir" className='mt-2 px-5 py-3 rounded-pill' id="submit" />
+                            <input 
+                                type="text" 
+                                name="token" 
+                                className='ps-2' 
+                                placeholder='votre token...' 
+                                id="token" 
+                                onInput={ this._onInput.bind( this ) }
+                            />
+                            <input 
+                                type="submit"
+                                value="voir" 
+                                className='mt-2 px-5 py-3 rounded-pill' 
+                                id="submit" 
+                                onClick={ this._onClick.bind( this ) }
+                            />
                         </div>
                     </section>
-                    <section className='page-part py-5 page-part-4 mt-5 d-flex flex-column justify-content-center align-items-center' id="token-data">
-                        <div className="w-100 my-4">
-                            <SettingsTokenData />
-                        </div>
-                    </section>
+                    { this._isQuery( 'token' ) && (
+                        <section className='page-part py-5 page-part-4 mt-5 d-flex flex-column justify-content-center align-items-center' id="token-data">
+                            <div className="w-100 my-4">
+                                <SettingsTokenData />
+                            </div>
+                        </section>
+                    ) }
                 </main>
             </Page>
         );
     }
 };
+
+export default connect( getState, { setProfile, setRole } )( App );

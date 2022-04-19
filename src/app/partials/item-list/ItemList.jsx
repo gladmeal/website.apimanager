@@ -9,9 +9,7 @@ export default class ItemList extends React.Component{
         this.state = {
             icon: this.props.icon || 'globe2',
             title: this.props.title || 'List title',
-            options: this.props.options && Array.isArray( this.props.options ) ? this.props.options : [],
-            head: this.props.head && Array.isArray( this.props.head ) ? this.props.head : [],
-            body: this.props.body && Array.isArray( this.props.body ) ? this.props.body : []
+            options: this.props.options && Array.isArray( this.props.options ) ? this.props.options : []
         };
     }
 
@@ -54,13 +52,13 @@ export default class ItemList extends React.Component{
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
-                                    { this.state.head.map( ( item, index ) => (
+                                    { this.props.head.map( ( item, index ) => (
                                         <th scope="col" key={ `th-${ index }` }> { item } </th>
                                     ) ) }
                                 </tr>
                             </thead>
                             <tbody>
-                                { this.state.body.map( ( item, index ) => (
+                                { this.props.body.map( ( item, index ) => (
                                     <tr key={ `tr-${ index }` }>
                                         <th scope="row" key={ `th--${ index }` }> { this._getId() } </th>
                                         { item.map( ( _item, _index ) => (
