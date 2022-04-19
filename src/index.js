@@ -5,6 +5,8 @@ import './index.scss';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Provider } from 'react-redux';
+import { persistStore } from 'redux-persist';
+import { PersistGate } from 'redux-persist/integration/react';
 import store from './store/store';
 import axios from 'axios';
 
@@ -51,48 +53,50 @@ axios.defaults.withCredentials = false;
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={ store }>
-      <BrowserRouter>
-        <Routes>
-          <Route index element={ <App /> } />
-          <Route path='sign-in' element={ <SingIn /> } />
-          <Route path='docs' element={ <DocsBase /> } />
-          <Route path='account' element={ <AccountBase /> }>
-            <Route index element={ <Home /> } />
-            <Route path='home' element={ <Home /> } />
-            <Route path='add' element={ <Add /> }>
-              <Route index element={ <AddIndex /> } />
-              <Route path='food' element={ <AddFood /> } />
-              <Route path='foodstuff' element={ <AddFoodStuff /> } />
-              <Route path='plate' element={ <AddPlate /> } />
-              <Route path='token' element={ <AddToken /> } />
-            </Route>
-            <Route path='history' element={ <History /> }>
-              <Route index element={ <HistoryIndex /> } />
-              <Route path='transaction' element={ <HistoryTransaction /> } />
-              <Route path='food' element={ <HistoryFood /> } />
-              <Route path='foodstuff' element={ <HistoryFoodStuff /> } />
-              <Route path='plate' element={ <HistoryPlate /> } />
-            </Route>
-            <Route path='settings' element={ <Settings /> }>
-              <Route index element={ <SettingsIndex /> } />
-              <Route path='add-user' element={ <SettingsAddAdmin /> } />
-              <Route path='token' element={ <SettingsToken /> } />
-              <Route path='token-data/:id' element={ <SettingsTokenData /> } />
-              <Route path='token-data' element={ <SettingsTokenData /> } />
-              <Route path='user' element={ <SettingsUser /> } />
-              <Route path='me' element={ <SettingsMe /> } />
-            </Route>
-            <Route path='update' element={ <Update /> }>
-              <Route index element={ <UpdateIndex /> } />
-              <Route path="plate" element={ <UpdatePlate /> } />
-              <Route path="food" element={ <UpdateFood /> } />
-              <Route path="foodstuff" element={ <UpdateFoodStuff /> } />
+      <PersistGate loading={ null } persistor={ persistStore( store ) }>
+        <BrowserRouter>
+          <Routes>
+            <Route index element={ <App /> } />
+            <Route path='sign-in' element={ <SingIn /> } />
+            <Route path='docs' element={ <DocsBase /> } />
+            <Route path='account' element={ <AccountBase /> }>
+              <Route index element={ <Home /> } />
+              <Route path='home' element={ <Home /> } />
+              <Route path='add' element={ <Add /> }>
+                <Route index element={ <AddIndex /> } />
+                <Route path='food' element={ <AddFood /> } />
+                <Route path='foodstuff' element={ <AddFoodStuff /> } />
+                <Route path='plate' element={ <AddPlate /> } />
+                <Route path='token' element={ <AddToken /> } />
+              </Route>
+              <Route path='history' element={ <History /> }>
+                <Route index element={ <HistoryIndex /> } />
+                <Route path='transaction' element={ <HistoryTransaction /> } />
+                <Route path='food' element={ <HistoryFood /> } />
+                <Route path='foodstuff' element={ <HistoryFoodStuff /> } />
+                <Route path='plate' element={ <HistoryPlate /> } />
+              </Route>
+              <Route path='settings' element={ <Settings /> }>
+                <Route index element={ <SettingsIndex /> } />
+                <Route path='add-user' element={ <SettingsAddAdmin /> } />
+                <Route path='token' element={ <SettingsToken /> } />
+                <Route path='token-data/:id' element={ <SettingsTokenData /> } />
+                <Route path='token-data' element={ <SettingsTokenData /> } />
+                <Route path='user' element={ <SettingsUser /> } />
+                <Route path='me' element={ <SettingsMe /> } />
+              </Route>
+              <Route path='update' element={ <Update /> }>
+                <Route index element={ <UpdateIndex /> } />
+                <Route path="plate" element={ <UpdatePlate /> } />
+                <Route path="food" element={ <UpdateFood /> } />
+                <Route path="foodstuff" element={ <UpdateFoodStuff /> } />
+              </Route>
+              <Route path='*' element={ <AccountError /> } />
             </Route>
             <Route path='*' element={ <AccountError /> } />
-          </Route>
-          <Route path='*' element={ <AccountError /> } />
-        </Routes>
-      </BrowserRouter>
+          </Routes>
+        </BrowserRouter>
+      </PersistGate>
     </Provider>
   </React.StrictMode>,
   document.getElementById( 'root' )

@@ -3,21 +3,18 @@ import { createSlice } from "@reduxjs/toolkit";
 export const profile = createSlice( {
     name: 'profile',
     initialState: {
-        token: localStorage.getItem( 'token' ) || '',
+        token: '',
         name: '',
         role: 0,
         email: ''
     },
     reducers: {
         setProfile( state, action ) {
-            localStorage.setItem( 'token', action.payload.token );
             return {
-                ...state,
                 ...action.payload
             };
         },
         setToken( state, action ) {
-            localStorage.setItem( 'token', action.payload );
             return {
                 ...state,
                 token: action.payload

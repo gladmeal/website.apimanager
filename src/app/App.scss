@@ -101,13 +101,13 @@
 
     &.page-part-3{
         .page-part-title{
-            color: $cultured-2;
+            color: $vermilion;
         }
 
         .part-page-form{
             height: 300px;
             width: 300px;
-            background-color: $cultured-2;
+            background-color: $vermilion;
             border-radius: 100%;
 
             input[type=text]{
@@ -117,11 +117,12 @@
                 width: calc( 100% - 80px );
                 background-color: transparent;
                 outline: none;
-                border-bottom: 2px solid $xiketic;
+                border-bottom: 4px solid $xiketic;
 
                 &::placeholder{
                     color: $xiketic;
-                    opacity: 0.8;
+                    opacity: 1;
+                    font-weight: 600;
                 }
             }
 

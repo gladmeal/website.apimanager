@@ -20,7 +20,7 @@ class App extends FormState{
     }
 
     _onClick() {
-        if ( this.state.token ) {
+        if ( this._isQuery( 'token' ) && this._isQuery( 'token' ).length > 25 ) {
             window.location = getURL.origin().concat( `?token=${this.state.token}#token-data` );
         }
     }
