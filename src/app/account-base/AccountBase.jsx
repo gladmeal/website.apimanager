@@ -23,6 +23,23 @@ class AccountBase extends React.Component{
             } );
         }
         axios.defaults.headers.common[ 'Authorization' ] = profile.token;
+        axios.interceptors.response.use( 
+            res => res,
+            ( err ) => {
+                if ( err.response.status === 403 ) {
+                    this.setState( {
+                        navigate: true
+                    } );
+                }
+                return err;
+            }
+        )
+
+        if ( profile.isConnected === false ) {
+            return this.setState( {
+                navigate: true
+            } );
+        }
     }
 
     render() {

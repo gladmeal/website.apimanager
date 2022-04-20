@@ -305,11 +305,12 @@ export default class FormControl extends React.Component{
                 <input 
                     className={ `form-control ${ this.props.className || ''}`}
                     type={ this.props.type || 'text' }
-                    value={ this.props.value }
+                    defaultValue={ this.props.value }
                     id={ this.props.id }
                     placeholder={ this.props.placeholder || 'Az:' } 
                     onInput={ e => this._onInput( e ) }
                     onChange={ this.props.onChange }
+                    name={ this.props.name }
                     ref={ this.ref }
                 />
                 <label htmlFor={ this.props.id }>

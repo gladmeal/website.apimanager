@@ -39,7 +39,8 @@ class SignIn extends React.Component{
                         role: data.role,
                         email: data.email,
                         name: data.name,
-                        token: data.token
+                        token: data.token,
+                        isConnected: true
                     } );
                     return this.setState( {
                         isLoading: false,

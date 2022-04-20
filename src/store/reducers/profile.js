@@ -6,7 +6,8 @@ export const profile = createSlice( {
         token: '',
         name: '',
         role: 0,
-        email: ''
+        email: '',
+        isConnected: false
     },
     reducers: {
         setProfile( state, action ) {
@@ -25,12 +26,18 @@ export const profile = createSlice( {
                 ...state,
                 role: action.payload
             };
+        },
+        setConnected( state, action ) {
+            return {
+                ...state,
+                isConnected: action.payload
+            };
         }
     }
 } );
 
 export default profile.reducer;
-export const { setProfile, setToken, setRole } = profile.actions;
+export const { setProfile, setToken, setRole, setConnected } = profile.actions;
 export function getState( state ) {
     return state;
 };
