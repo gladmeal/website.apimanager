@@ -34,7 +34,8 @@ export default class AddFoodStuff extends FormState{
             },
             error: '',
             isLoading: false,
-            navigate: false
+            navigate: false,
+            name: 'Créer'
         };    
     }
 
@@ -52,6 +53,7 @@ export default class AddFoodStuff extends FormState{
             }
         }
         this.setState( {
+            name: queries.update ? 'Modifier' : 'Créer',
             form: {
                 ...this.state.form,
                 ...data
@@ -285,7 +287,7 @@ export default class AddFoodStuff extends FormState{
                 <span className="mt-5"></span>
                 <Loader visible={ this.state.isLoading } className="mt-4 dark" title="chargment..." />
                 <FormError className="mt-4 dark" title={ this.state.error } />
-                <FormButton name="Créer" />
+                <FormButton name={ this.state.name } />
             </Form>
         );
     }

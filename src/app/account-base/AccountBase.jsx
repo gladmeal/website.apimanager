@@ -23,17 +23,28 @@ class AccountBase extends React.Component{
             } );
         }
         axios.defaults.headers.common[ 'Authorization' ] = profile.token;
-        axios.interceptors.response.use( 
-            res => res,
-            ( err ) => {
-                if ( err.response.status === 403 ) {
-                    this.setState( {
-                        navigate: true
-                    } );
-                }
-                return err;
+
+        axios.interceptors.request.use( function ( res ) {
+            return res;
+        }, function ( err ) {
+            if ( err.response.status === 403 ) {
+                this.setState( {
+                    navigate: true
+                } );
             }
-        )
+            return Promise.reject( err );
+        } );
+
+        axios.interceptors.response.use( function ( res ) {
+            return res;
+        }, function ( err ) {
+            if ( err.response.status === 403 ) {
+                this.setState( {
+                    navigate: true
+                } );
+            }
+            return Promise.reject( err );
+        } );
 
         if ( profile.isConnected === false ) {
             return this.setState( {

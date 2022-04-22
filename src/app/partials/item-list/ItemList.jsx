@@ -16,6 +16,10 @@ export default class ItemList extends React.Component{
         return this.counter++;
     }
 
+    _isVisible() {
+        return typeof this.props.visible === 'boolean' ? this.props.visible : true;
+    }
+
     render() {
         return (
             <div className="w-100">
@@ -45,30 +49,33 @@ export default class ItemList extends React.Component{
                         </div>
                     </div>
                 ) }
-                <div className="d-flex justify-content-start container-lg item-list-manager mb-5 mt-4 pt-1 pb-2">
-                    <div className="item-list-scroller row h-auto px-3">
-                        <table className="table shadow">
-                            <thead>
-                                <tr>
-                                    <th scope="col">#</th>
-                                    { this.props.head.map( ( item, index ) => (
-                                        <th scope="col" key={ `th-${ index }` }> { item } </th>
-                                    ) ) }
-                                </tr>
-                            </thead>
-                            <tbody>
-                                { this.props.body.map( ( item, index ) => (
-                                    <tr key={ `tr-${ index }` }>
-                                        <th scope="row" key={ `th--${ index }` }> { this._getId() } </th>
-                                        { item.map( ( _item, _index ) => (
-                                            <td key={ `td-${ index }-${ _index }` }> { _item } </td>
+                { this._isVisible() && (
+                    <div className="d-flex justify-content-start container-lg item-list-manager mb-5 mt-4 pt-1 pb-2">
+                        <div className="item-list-scroller row h-auto px-3">
+                            <table className="table shadow">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        { this.props.head.map( ( item, index ) => (
+                                            <th scope="col" key={ `th-${ index }` }> { item } </th>
                                         ) ) }
                                     </tr>
-                                ) ) }
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    { this.props.body.map( ( item, index ) => (
+                                        <tr key={ `tr-${ index }` }>
+                                            <th scope="row" key={ `th--${ index }` }> { this._getId() } </th>
+                                            { item.map( ( _item, _index ) => (
+                                                <td key={ `td-${ index }-${ _index }` }> { _item } </td>
+                                            ) ) }
+                                        </tr>
+                                    ) ) }
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-                </div>
+                ) }
+                { this.props.children }
             </div>
         )
     }

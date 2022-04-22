@@ -3,30 +3,176 @@ import ItemList from "../partials/item-list/ItemList";
 import ItemListButton from "../partials/item-list-button/ItemListButton";
 import ItemListModal from "./../partials/item-list-modal/ItemListModal";
 import ItemListImage from "../partials/item-list-image/ItemListImage";
+import axios from "axios";
+import Loader from '../partials/loader/Loader';
+import AccountError from '../account-error/AccountError';
+import { Navigate } from "react-router-dom";
+import FormError from '../partials/form-error/FormError';
+import HistoryTransaction from "../history-transaction/HistoryTransaction";
 
-export default class HistoryFoodStuff extends React.Component{
+export default class HistoryFoodStuff extends HistoryTransaction{
     constructor( props ) {
         super( props );
         this.state = {
+            ...super.state,
             modal: false,
-            modalData: [ 'cles: 0001', 'Date de création: 10/20/2021', 'Date de Mise à jour: 10/20/2021', 'Créer par: utilisateur 1' ],
-            data: [
-                [ <ItemListImage/>, "riz", 1.52, 12.4, 2.5, 4.5, 8.5, 1.52, 12.4, 2.5, 4.5, 8.5, 1.52, 12.4, 2.5, 1.52, 12.4, 2.5, <ItemListButton onClick={ () => this._openModal() } icon="clipboard-plus-fill"/>, <ItemListButton icon="pencil-square"/>, <ItemListButton icon="x-octagon-fill"/> ],
-                [ <ItemListImage/>, "banane", 1.52, 12.4, 2.5, 4.5, 8.5, 1.52, 12.4, 2.5, 4.5, 8.5, 1.52, 12.4, 2.5, 1.52, 12.4, 2.5, <ItemListButton onClick={ () => this._openModal() } icon="clipboard-plus-fill"/>, <ItemListButton icon="pencil-square"/>, <ItemListButton icon="x-octagon-fill"/> ],
-            ]
+            sort: 0,
+            modalData: [],
+            head: [],
+            body: [],
+            data: [],
+            url: '',
+            error: '',
+            navigate: false
         };
     }
 
-    _openModal() {
+    componentDidMount() {
         this.setState( {
+            isLoadding: true
+        }, () => {
+            axios.get( 'api/foodstuff/list?users=true' ).then( ( { data } ) => {
+                this.setState( {
+                    data,
+                    isLoadding: false
+                } )
+            } ).catch( () => {
+                this.setState( {
+                    isError: true,
+                    isLoadding: false
+                } )
+            } )
+        } )
+    }
+
+    _openModal( item ) {
+        this.setState( {
+            modalData: [
+                `cles: ${ item._id }`,
+                `Créé le: ${ item.createdAt }`,
+                `Modifié le: ${ item.updatedAt }`,
+                `Créer par: ${ item.creatorID.name }`,
+            ],
             modal: true
         } );
+    }
+
+    _getHeader() {
+        if ( this.state.sort === 0 ) {
+            return [
+                'IMAGE',
+                'NOM',
+                'ENERGIE (kcal)',
+                'EAU (g)',
+                'PROTEINE (g)',
+                'GLUCIDE (g)',
+                'FIBRE (g)',
+                'CENDRE (g)',
+                'LIPIDE (g)',
+                'CALCUIM (mg)',
+                'ZINC (mg)',
+                'AZOTE (mg)',
+                'FER (mg)',
+                'VITAMINE A(mg)',
+                'VITAMINE B(mg)',
+                'VITAMINE C(mg)',
+                'VITAMINE D(mg)',
+                'VITAMINE E(mg)',
+                'PLUS',
+                'MODIFIER',
+                'SUPPRIMER'
+            ];
+        }
+        return [ "ID", "MEMBRE", "NOMBRE DE TRANSACTION" ];
+    }
+
+    _getBody() {
+        if ( this.state.sort === 0 ) {
+            return this.state.data.map( item => [
+                <ItemListImage/>,
+                item.name,
+                item.energy,
+                item.water,
+                item.protein,
+                item.carbohydrate,
+                item.fibre,
+                item.ash,
+                item.fat,
+                item.ca,
+                item.zn,
+                item.n,
+                item.fe,
+                item.vitamin_a,
+                item.vitamin_b,
+                item.vitamin_c,
+                item.vitamin_d,
+                item.vitamin_e,
+                <ItemListButton onClick={ this._openModal.bind( this, item ) } icon="clipboard-plus-fill"/>, 
+                <ItemListButton onClick={ this._update.bind( this, item ) } icon="pencil-square"/>,
+                <ItemListButton onClick={ this._delete.bind( this, item ) } icon="x-octagon-fill"/>
+            ] ).reverse();
+        }
+        const 
+            data = {},
+            result = [];
+                this.state.data.forEach( item => {
+                    if ( !( item.creatorID._id in data ) ) {
+                        data[ item.creatorID._id ] = {
+                            name: item.creatorID.name,
+                            counter: 0
+                        };
+                    }
+                    data[ item.creatorID._id ].counter++;
+                } );
+            for ( const item in data ) {
+                result.push( [
+                    item,
+                    data[ item ].name,
+                    data[ item ].counter
+                ] );
+            }
+        return result;
     }
 
     _closeModal() {
         this.setState( {
             modal: false
         } );
+    }
+
+    _update( data ) {
+        let end = '';
+        const 
+            id = data._id,
+            name = data.name;
+                for( const key in data ) {
+                    const 
+                        val = data[ key ];
+                    if ( [ 'createdAt', 'updatedAt', '_id', 'name', '__v', 'creatorID' ].indexOf( key ) === -1 ) 
+                        end += `&${ key }=${ val }`;
+                }
+        this.setState( {
+            url: `../../add/foodstuff?update=true&id=${ id }&name=${ name }${ end }`,
+            navigate: true
+        } );
+    }
+
+    _delete( data )  {
+        if ( window.confirm( `Voulez-vous réellement supprimer l'aliment: ${ data.name }?` ) === true ) {
+            return this.setState( {
+                isLoadding: true
+            }, () => (
+                axios.delete( `api/foodstuff/delete/${ data._id }` ).then( () => this.setState( {
+                    url: '../',
+                    navigate: true,
+                } ) ).catch( ( { response: { data } } ) => {
+                    this.setState( {
+                        isLoadding: false,
+                        error: data.msg
+                    } )
+                } )
+            ) )
+        }
     }
 
     render() {
@@ -46,33 +192,27 @@ export default class HistoryFoodStuff extends React.Component{
                     ) ) }
                 </ItemListModal>
                 <ItemList
-                    head={ [ 
-                        'Image',
-                        'Nom',
-                        'Energie (kcal)',
-                        'Eau (g)',
-                        'Protéine (g)',
-                        'Glucide (g)',
-                        'Fibre (g)',
-                        'Cendre (g)',
-                        'Lipide (g)',
-                        'Calcuim (mg)',
-                        'Zinc (mg)',
-                        'Azote (mg)',
-                        'Fer (mg)',
-                        'Vitamine A(mg)',
-                        'Vitamine B(mg)',
-                        'Vitamine C(mg)',
-                        'Vitamine D(mg)',
-                        'Vitamine E(mg)',
-                        'plus',
-                        'Modifier',
-                        'Supprimer'
-                    ] }
+                    head={ this._getHeader() }
                     icon="joystick"
                     title="aliments"
-                    body={ this.state.data }
-                />
+                    visible={ !this.state.isError }
+                    body={ this._getBody() }
+                    selected={ 0 }
+                    options={ [
+                        { id: 0, value: 'Original' },
+                        { id: 1, value: 'Compter par utilisateur' }
+                    ] }
+                    onSortMethodChange={ this._setSort.bind( this ) }
+                >
+                    { this.state.isError && (
+                        <AccountError errorCode={ 403 } errorMessage="you cannot access to this page" />
+                    ) }
+                    { this.state.navigate && (
+                        <Navigate to={ this.state.url } />
+                    ) }
+                    <Loader visible={ this.state.isLoadding } title="chargement..."/>
+                <FormError title={ this.state.error } />
+                </ItemList>
             </React.Fragment>
         );
     }

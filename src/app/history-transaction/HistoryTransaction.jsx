@@ -3,7 +3,6 @@ import ItemList from "../partials/item-list/ItemList";
 import axios from "axios";
 import Loader from '../partials/loader/Loader';
 import AccountError from '../account-error/AccountError';
-import { Navigate } from "react-router-dom";
 
 export default class HistoryTransaction extends React.Component{
     constructor( props ) {
@@ -12,8 +11,9 @@ export default class HistoryTransaction extends React.Component{
             data: [],
             sort: 0,
             isLoadding: false,
+            url: '',
+            error: '',
             isError: false,
-            status: 0,
             body: []
         };
     }
@@ -39,7 +39,7 @@ export default class HistoryTransaction extends React.Component{
 
     _setSort( method ) {
         this.setState( {
-            sort: method.id
+            sort: method
         } );
     }
 
@@ -58,7 +58,7 @@ export default class HistoryTransaction extends React.Component{
                 item.table,
                 item.adminID.name,
                 item.createdAt
-            ] );
+            ] ).reverse();
         }
         const 
             data = {},
@@ -85,9 +85,6 @@ export default class HistoryTransaction extends React.Component{
     render() {
         return (
             <React.Fragment>
-                { this.state.isError && this.state.status === 403 && (
-                    <Navigate to='/sign-in' />
-                ) }
                 { this.state.isError && (
                     <AccountError errorCode={ 403 } errorMessage="you cannot access to this page" />
                 ) }

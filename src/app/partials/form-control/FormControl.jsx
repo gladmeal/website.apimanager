@@ -33,35 +33,67 @@ export default class FormControl extends React.Component{
         super( props );
         this.ref = React.createRef();
         this.showModal = true;
+        this.unmount = false;
         this.state = {
             label: this.props.label || 'label',
             modalVisible: false,
             multiple: this.props.multiple !== undefined ? this.props.multiple : true,
             file: undefined,
             value: undefined,
+            valueData:  this.props.value || '',
             dataUrl: this.props.url || '',
             error: this.props.error || '',
             icon: this.props.icon || 'image-fill',
             selectedVisible: true,
-            initialOptions: this.props.options || [ ],
-            selected: [],
+            selected: [ ],
             evalableExtension: this.props.extensions || [ ],
             maxSize: this.props.maxSize || 3.5
         };
     }
 
+    _getOptions() {
+        return this.props.options || [ ];
+    }
+
+    _getNativeSelected() {
+        return this.props.selected || [];
+    }
+
+    componentDidUpdate() {
+        if ( !this.state.multiple ) {
+            if ( this.props.selected !== undefined ) {
+                const 
+                    item = this._getOptions().find( item => item.id === this.props.selected );
+                if ( this.ref && item ) this.ref.current.value = item.value;
+            }
+        } 
+    }
+
     componentDidMount() {
-        if ( !this.state.initialOptions.length ) {
+        this.unmount = false;
+        if ( !this._getOptions().length ) {
             this._hideSelect();
         }
 
         if ( !this.state.multiple ) {
             if ( this.props.selected !== undefined ) {
                 const 
-                    item = this.state.initialOptions.find( item => item.id === this.props.selected );
-                if ( this.ref ) this.ref.current.value = item.value;
+                    item = this._getOptions().find( item => item.id === this.props.selected );
+                if ( this.ref && item ) this.setState( {
+                    valueData: item.valu
+                } );
             }
-        }
+        } 
+
+       if ( this.state.multiple && this.props.type === 'select' ) {
+            document.addEventListener( 'data:selected', ( e ) => (
+                !this.unmount && this._addSelected( e.detail )
+            ) )
+       }
+    }
+
+    componentWillUnmount() {
+        this.unmount = true;
     }
 
     getValue() {
@@ -89,27 +121,34 @@ export default class FormControl extends React.Component{
     }
 
     _openModal() {
-        if ( this.state.initialOptions.length && this.showModal ) {
+        if ( this._getOptions().length && this.showModal ) {
             this.setState( {
                 modalVisible: true
             } );
         }
     }
 
+    _getSelected() {
+        return this.state.selected;
+    }
+
     _getNotSelected() {
         const 
             result = [];
-                this.state.initialOptions.forEach( item => {
-                    if ( this.state.selected.find( _item => _item.id === item.id ) === undefined ) 
+                this._getOptions().forEach( item => {
+                    if ( this._getSelected().find( _item => _item.id === item.id ) === undefined ) 
                         result.push( item );
                 } );
             this.showModal = result.length !== 0;
         return result;
     }
 
-    _addSelected( item ) {
+    _addSelected( items ) {
         this.setState( {
-            selected: [ ...this.state.selected, item ]
+            selected: [ ...this.state.selected, ...items ]
+        }, () => {
+            this._closeModal();
+            return this._doOnChange();
         } );
     }
 
@@ -124,20 +163,24 @@ export default class FormControl extends React.Component{
         } );
     }
 
-    _modalItemClick( item ) {
-        if ( this.state.multiple ) {
-                this._addSelected( item );
-            return this._closeModal();
+    _doOnChange( val ) {
+        if ( typeof this.props.onChange === 'function' ) {
+            this.props.onChange( 
+                this.props.multiple ? this._getSelected().map( item => item.id ) :
+                val || this.state.value
+            );
         }
-        this.ref.current.value = item.value;
+    }
+
+    _modalItemClick( item ) {
+        if ( this.state.multiple ) 
+            return this._addSelected( [ item ] );
+            console.log( item )
         this._closeModal();
         this.setState( {
-            value: item.id
-        } );
-
-        if ( typeof this.props.onChange === 'function' ) {
-            this.props.onChange( item );
-        }
+            value: item.id,
+            valueData: item.value
+        }, () => this._doOnChange( item.id ) );
     }
 
     _seletedInput( e ) {
@@ -246,7 +289,7 @@ export default class FormControl extends React.Component{
                     { this.state.multiple && (
                         <React.Fragment>
                             <div className="w-100 d-flex align-items-center form-control-content-seleted mb-3">
-                                { this.state.selected.length > 0 && this.state.selected.map( item => (
+                                { this._getSelected().length > 0 && this._getSelected().map( item => (
                                     <FormControlSelected 
                                         name={ item.value } 
                                         key={ item.id }
@@ -259,9 +302,9 @@ export default class FormControl extends React.Component{
                     <div className="form-floating form-control-container">
                         <input 
                             type={ this.props.type || 'text' }
-                            value={ this.props.value }
+                            defaultValue={ this.state.valueData }
                             id={ this.props.id }
-                            className={ `form-control ${ this.props.className || ''}`}
+                            className={ `form-control ${ this.props.className || ''}` }
                             placeholder={ this.props.placeholder || 'Az:' } 
                             onClick={ () => this._openModal() }
                             onKeyUp={ () => this._seletedInput }
@@ -305,7 +348,7 @@ export default class FormControl extends React.Component{
                 <input 
                     className={ `form-control ${ this.props.className || ''}`}
                     type={ this.props.type || 'text' }
-                    defaultValue={ this.props.value }
+                    defaultValue={ this.props.valueData }
                     id={ this.props.id }
                     placeholder={ this.props.placeholder || 'Az:' } 
                     onInput={ e => this._onInput( e ) }
