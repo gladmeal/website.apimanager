@@ -92,7 +92,7 @@ export default class AddPlate extends AddFoodStuff {
             error: ''
         }, () => {
             axios.request( {
-                method: update ? 'PUT' : 'POST',
+                method: 'POST',
                 data: this.state.form,
                 url: api
             } ).then( () => {
