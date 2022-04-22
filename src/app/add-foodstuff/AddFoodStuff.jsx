@@ -45,7 +45,7 @@ export default class AddFoodStuff extends FormState{
             data = {};
         for( const name in queries ) {
             const 
-                value = queries[ name ],
+                value = decodeURIComponent( queries[ name ] ),
                 node = document.getElementsByName( name )[ 0 ];
             if ( node ) {
                 node.value = value;

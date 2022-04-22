@@ -3,6 +3,7 @@ import ItemList from "../partials/item-list/ItemList";
 import axios from "axios";
 import Loader from '../partials/loader/Loader';
 import AccountError from '../account-error/AccountError';
+import moment from "moment";
 
 export default class HistoryTransaction extends React.Component{
     constructor( props ) {
@@ -57,7 +58,7 @@ export default class HistoryTransaction extends React.Component{
                 item.infos,
                 item.table,
                 item.adminID.name,
-                item.createdAt
+                moment( item.createdAt ).format( 'MM-DD-YYYY HH:MM a' ),
             ] ).reverse();
         }
         const 

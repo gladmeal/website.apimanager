@@ -4,6 +4,7 @@ import AccountError from '../account-error/AccountError';
 import axios from "axios";
 import Loader from "../partials/loader/Loader";
 import getURL from "get-url-parts";
+import moment from "moment";
 
 export default class SettingsTokenData extends React.Component{
     constructor( props ) {
@@ -12,7 +13,8 @@ export default class SettingsTokenData extends React.Component{
             isError: false,
             isLoading: false,
             head: [ "Numéro de token", "valeur", "type", "ip", "navigateur", "date", "heure" ],
-            body: []
+            body: [],
+            error: 'You cannot access to this page'
         };
     }
 
@@ -28,38 +30,38 @@ export default class SettingsTokenData extends React.Component{
         this.setState( { isLoading: true }, () => {
             axios.get( `${ getURL.path() !== '/' ? `/client/history?token=${token}` : `/api/history/${token}` }`,  ).then( result => {
                 const 
-                    head = [ 'ID', 'NAVIGATEUR', 'PAYS', 'REGION', 'HEURE' ],
+                    head = getURL.path() !== '/'  ? 
+                        [ 'ID', 'NAVIGATEUR', 'IP', 'PAYS', 'REGION', 'JOUR', 'HEURE' ] : 
+                        [ 'ID', 'PAYS', 'REGION', 'JOUR', 'HEURE' ],
                     body = result.data.map( item => {
                         if ( getURL.path() !== '/' ) {
                             return [ 
                                 item._id, 
                                 item.userBrowser, 
+                                item.userIP, 
                                 item.userCountry, 
                                 item.userRegion, 
-                                item.createdAt 
+                                moment( item.createdAt ).format( 'MM-DD-YYYY' ),
+                                moment( item.createdAt ).format( 'HH:MM a' ) 
                             ];
                         }
                         return [ 
                             item._id, 
-                            item.userBrowser, 
                             item.userCountry, 
                             item.userRegion,
-                            item.userIP, 
-                            item.createdAt 
+                            moment( item.createdAt ).format( 'MM-DD-YYYY' ),
+                            moment( item.createdAt ).format( 'HH:MM a' ) 
                         ];
                     } ).reverse();
-                    if ( getURL.path() !== '/' ) {
-                        head[ head.length - 1 ] = 'ADRESSE IP';
-                        head.push( 'HEURE' );
-                    }
                 this.setState( {
                     isLoading: false,
                     head: head,
                     body: body
                 } );
-            } ).catch( () => {
+            } ).catch( ( err ) => {
                 this.setState( {
-                    isError: true
+                    isError: true,
+                    error: err.response.data.msg
                 } );
             } )
         } )
@@ -67,7 +69,7 @@ export default class SettingsTokenData extends React.Component{
 
     render() {
         if ( this.state.isError ) {
-            return <AccountError errorCode={ 403 } errorMessage='You cannot access to this page' />
+            return <AccountError errorCode={ 403 } errorMessage={ this.state.error } />
         }
         return (
             <React.Fragment>

@@ -40,7 +40,7 @@ export default class FormControl extends React.Component{
             multiple: this.props.multiple !== undefined ? this.props.multiple : true,
             file: undefined,
             value: undefined,
-            valueData:  this.props.value || '',
+            valueData:  '',
             dataUrl: this.props.url || '',
             error: this.props.error || '',
             icon: this.props.icon || 'image-fill',
@@ -59,30 +59,24 @@ export default class FormControl extends React.Component{
         return this.props.selected || [];
     }
 
-    componentDidUpdate() {
-        if ( !this.state.multiple ) {
-            if ( this.props.selected !== undefined ) {
-                const 
-                    item = this._getOptions().find( item => item.id === this.props.selected );
-                if ( this.ref && item ) this.ref.current.value = item.value;
-            }
-        } 
-    }
-
-    componentDidMount() {
-        this.unmount = false;
-        if ( !this._getOptions().length ) {
-            this._hideSelect();
+    _getSelectedValue() {
+        if ( this.state.valueData ) {
+            return this.state.valueData;
         }
 
         if ( !this.state.multiple ) {
             if ( this.props.selected !== undefined ) {
                 const 
                     item = this._getOptions().find( item => item.id === this.props.selected );
-                if ( this.ref && item ) this.setState( {
-                    valueData: item.valu
-                } );
+                return item?.value || this.state.valueData;
             }
+        }
+    }
+
+    componentDidMount() {
+        this.unmount = false;
+        if ( !this._getOptions().length ) {
+            this._hideSelect();
         } 
 
        if ( this.state.multiple && this.props.type === 'select' ) {
@@ -175,12 +169,13 @@ export default class FormControl extends React.Component{
     _modalItemClick( item ) {
         if ( this.state.multiple ) 
             return this._addSelected( [ item ] );
-            console.log( item )
         this._closeModal();
         this.setState( {
             value: item.id,
             valueData: item.value
-        }, () => this._doOnChange( item.id ) );
+        }, () => {
+            this._doOnChange( item.id );
+        } );
     }
 
     _seletedInput( e ) {
@@ -302,7 +297,7 @@ export default class FormControl extends React.Component{
                     <div className="form-floating form-control-container">
                         <input 
                             type={ this.props.type || 'text' }
-                            defaultValue={ this.state.valueData }
+                            value={ this._getSelectedValue() }
                             id={ this.props.id }
                             className={ `form-control ${ this.props.className || ''}` }
                             placeholder={ this.props.placeholder || 'Az:' } 
@@ -348,7 +343,7 @@ export default class FormControl extends React.Component{
                 <input 
                     className={ `form-control ${ this.props.className || ''}`}
                     type={ this.props.type || 'text' }
-                    defaultValue={ this.props.valueData }
+                    value={ this.props.valueData }
                     id={ this.props.id }
                     placeholder={ this.props.placeholder || 'Az:' } 
                     onInput={ e => this._onInput( e ) }

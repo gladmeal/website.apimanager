@@ -9,6 +9,7 @@ import AccountError from '../account-error/AccountError';
 import { Navigate } from "react-router-dom";
 import FormError from '../partials/form-error/FormError';
 import HistoryTransaction from "../history-transaction/HistoryTransaction";
+import moment from "moment";
 
 export default class HistoryFoodStuff extends HistoryTransaction{
     constructor( props ) {
@@ -49,8 +50,8 @@ export default class HistoryFoodStuff extends HistoryTransaction{
         this.setState( {
             modalData: [
                 `cles: ${ item._id }`,
-                `Créé le: ${ item.createdAt }`,
-                `Modifié le: ${ item.updatedAt }`,
+                `Créé le: ${ moment( item.createdAt ).format( 'MM-DD-YYYY HH:MM a' ) }`,
+                `Modifié le: ${ moment( item.updatedAt ).format( 'MM-DD-YYYY HH:MM a' ) }`,
                 `Créer par: ${ item.creatorID.name }`,
             ],
             modal: true
