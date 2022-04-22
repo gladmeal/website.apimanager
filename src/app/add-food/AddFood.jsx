@@ -92,7 +92,7 @@ export default class AddFood extends AddFoodStuff{
             error: ''
         }, () => {
             axios.request( {
-                method: update ? 'PUT' : 'POST',
+                method: 'POST',
                 data: this.state.form,
                 url: api
             } ).then( () => {
@@ -101,6 +101,7 @@ export default class AddFood extends AddFoodStuff{
                     navigate: true
                 } )
             } ).catch( ( { response: { data } } ) => {
+                console.log( data.msg )
                 this.setState( {
                     isLoading: false,
                     error: data.msg

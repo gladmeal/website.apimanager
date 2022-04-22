@@ -112,6 +112,7 @@ export default class AddToken extends AddFoodStuff{
                     name="label"
                     type="text"
                     label="Entreprise"
+                    disabled={ this.state.update }
                     id="label"
                     onChange={ this._onInput.bind( this ) }
                 />

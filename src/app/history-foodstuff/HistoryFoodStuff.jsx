@@ -212,7 +212,7 @@ export default class HistoryFoodStuff extends HistoryTransaction{
                         <Navigate to={ this.state.url } />
                     ) }
                     <Loader visible={ this.state.isLoadding } title="chargement..."/>
-                <FormError title={ this.state.error } />
+                    <FormError title={ this.state.error } />
                 </ItemList>
             </React.Fragment>
         );

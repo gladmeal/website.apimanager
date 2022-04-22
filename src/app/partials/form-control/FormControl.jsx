@@ -160,7 +160,7 @@ export default class FormControl extends React.Component{
     _doOnChange( val ) {
         if ( typeof this.props.onChange === 'function' ) {
             this.props.onChange( 
-                this.props.multiple ? this._getSelected().map( item => item.id ) :
+                this.state.multiple ? this._getSelected().map( item => item.id ) :
                 val || this.state.value
             );
         }
@@ -350,6 +350,7 @@ export default class FormControl extends React.Component{
                     onChange={ this.props.onChange }
                     name={ this.props.name }
                     ref={ this.ref }
+                    disabled={ this.props.disabled }
                 />
                 <label htmlFor={ this.props.id }>
                     { this.props.label }

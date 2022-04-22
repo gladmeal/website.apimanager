@@ -13,6 +13,7 @@ export default class AddFoodStuff extends FormState{
     constructor( props ) {
         super( props );
         this.state = {
+            update: false,
             form: {
                 name: '',
                 energy: 0,
@@ -54,6 +55,7 @@ export default class AddFoodStuff extends FormState{
         }
         this.setState( {
             name: queries.update ? 'Modifier' : 'Créer',
+            update: queries.update ? true : false,
             form: {
                 ...this.state.form,
                 ...data
