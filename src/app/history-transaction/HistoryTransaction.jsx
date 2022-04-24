@@ -28,11 +28,11 @@ export default class HistoryTransaction extends React.Component{
                     data: data,
                     isLoadding: false
                 } );
-            } ).catch( ( { response: { data, status } } ) => {
+            } ).catch( ( err ) => {
                 return this.setState( {
                     isError: true,
                     isLoadding: false,
-                    status
+                    status: err.response?.status
                 } );
             } )
         } );
@@ -86,22 +86,24 @@ export default class HistoryTransaction extends React.Component{
     render() {
         return (
             <React.Fragment>
-                { this.state.isError && (
-                    <AccountError errorCode={ 403 } errorMessage="you cannot access to this page" />
-                ) }
                 <ItemList
                     head={ this._getHeader() }
                     body={ this._getBody() }
                     icon="signpost-2-fill"
                     title="transactions"
                     selected={ 0 }
+                    visible={ !this.state.isError }
                     options={ [
                         { id: 0, value: 'Original' },
                         { id: 1, value: 'Compter par utilisateur' }
                     ] }
                     onSortMethodChange={ this._setSort.bind( this ) }
-                ></ItemList>
-                <Loader visible={ this.state.isLoadding } title="chargement..."/>
+                >
+                    { this.state.isError && (
+                        <AccountError errorCode={ 403 } errorMessage="you cannot access to this page" />
+                    ) }
+                    <Loader visible={ this.state.isLoadding } title="chargement..."/>
+                </ItemList>
             </React.Fragment>
         );
     }

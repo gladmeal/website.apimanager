@@ -113,15 +113,17 @@ export default class AddFoodStuff extends FormState{
     }
 
     _onInput( e ) {
-        const 
-            target = e.target,
-            name = target.name,
-            value = target.value;
-        this.setState( {
-            form: {
-                ...this.state.form,
-                [ name ]: value
-            }
+        return new Promise( ( res ) => {
+            const 
+                target = e.target,
+                name = target.name,
+                value = target.value;
+            this.setState( {
+                form: {
+                    ...this.state.form,
+                    [ name ]: value
+                }
+            }, res );
         } );
     }
 
@@ -132,10 +134,10 @@ export default class AddFoodStuff extends FormState{
                 icon="stickies-fill"
                 onSubmit={ ( e ) => this._onFormSubmit( e ) }
             >
-                <span className="mt-3"></span>
                 { this.state.navigate && (
                     <Navigate to="../" />
                 ) }
+                <span className="mt-3"></span>
                 <FormControl 
                     name="name"
                     label="Nom de l'aliment"

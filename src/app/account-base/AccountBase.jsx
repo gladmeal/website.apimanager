@@ -22,11 +22,11 @@ class AccountBase extends React.Component{
                 navigate: true
             } );
         }
+        
         axios.defaults.headers.common[ 'Authorization' ] = profile.token;
-
-        axios.interceptors.request.use( function ( res ) {
+        axios.interceptors.request.use( ( res ) => {
             return res;
-        }, function ( err ) {
+        }, ( err ) =>  {
             if ( err.response.status === 403 ) {
                 this.setState( {
                     navigate: true
@@ -35,9 +35,9 @@ class AccountBase extends React.Component{
             return Promise.reject( err );
         } );
 
-        axios.interceptors.response.use( function ( res ) {
+        axios.interceptors.response.use( ( res ) => {
             return res;
-        }, function ( err ) {
+        }, ( err ) =>  {
             if ( err.response.status === 403 ) {
                 this.setState( {
                     navigate: true
@@ -45,11 +45,15 @@ class AccountBase extends React.Component{
             }
             return Promise.reject( err );
         } );
+    }
 
-        if ( profile.isConnected === false ) {
-            return this.setState( {
-                navigate: true
-            } );
+    componentDidUpdate( prevProps ) {
+        if ( this.props.profile.isConnected !== prevProps.profile.isConnected ) {
+            if ( this.props.profile.isConnected === false ) {
+                return this.setState( {
+                    navigate: true
+                } );
+            }
         }
     }
 
