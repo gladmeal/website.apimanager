@@ -1,7 +1,7 @@
 @use 'src/mixins' as *;
 
 .content-doc-list{
-    max-width: 700px !important;
+    max-width: 1100px !important;
     background-color: $cultured-2;
     border-radius: 5px;
 
@@ -45,6 +45,24 @@
             padding: 15px;
             border-radius: 8px;
             color: $cultured;
+        }
+    }
+
+    @media screen and ( min-width: 1200px ) {
+        .doc-item-title{
+            i{
+                font-size: 30px;
+            }
+
+            p{
+                font-size: 1.7em;
+            }
+        }
+
+        .doc-item{
+            p{
+                font-size: 1.3em;
+            }
         }
     }
 }

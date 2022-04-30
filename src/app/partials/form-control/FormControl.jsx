@@ -212,6 +212,7 @@ export default class FormControl extends React.Component{
                 dataUrl: url,
                 error: ''
             } );
+            console.log( this.onChange )
 
             if ( typeof this.props.onChange === 'function' )
                 this.props.onChange( {

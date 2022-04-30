@@ -7,12 +7,21 @@ export default class UpdateFood extends React.Component{
     constructor( props ) {
         super( props );
         this.state = {
-            list: []
+            list: [],
+            item: undefined
         };
     }
 
     _onFormSubmit( e ) {
         e.preventDefault();
+    }
+
+    _onSelect( item ) {
+        console.log( item );
+    }
+
+    _onPicture( pic ) {
+        console.log( pic )
     }
 
     render() {
@@ -27,6 +36,7 @@ export default class UpdateFood extends React.Component{
                     type="file"
                     label="Image"
                     id="file"
+                    onChange={ this._onPicture }
                     extensions={ [ 'png', 'jpg', 'jpeg' ] }
                 />
                 <span className="mt-3"></span>

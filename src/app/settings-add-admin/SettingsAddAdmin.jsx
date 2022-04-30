@@ -8,6 +8,7 @@ import AddFoodStuff from "../add-foodstuff/AddFoodStuff";
 import FormError from '../partials/form-error/FormError';
 import Loader from "../partials/loader/Loader";
 import getURL from "get-url-parts";
+import VerifyUser from "../partials/verify-user/VerifyUser";
 import axios from "axios";
 import { Navigate } from "react-router-dom";
 
@@ -91,54 +92,56 @@ class SettingsAddAdmin extends AddFoodStuff{
 
     render() {
         return (
-            <Form 
-                title="Ajouter une Administrateur" 
-                icon="person-circle"
-                onSubmit={ ( e ) => this._onFormSubmit( e ) }
-            >
-                <span className="mt-3"></span>
-                { this.state.navigate && (
-                    <Navigate to="../" />
-                ) }
-                <FormControl 
-                    name="name"
-                    type="text"
-                    label="Nom de l'administrateur"
-                    id="name"
-                    onChange={ this._onInput.bind( this ) }
-                />
-                <span className="mt-3"></span>
-                <FormControl 
-                    name="email"
-                    type="email"
-                    label="Email"
-                    id="email"
-                    onChange={ this._onInput.bind( this ) }
-                />
-                <span className="mt-3"></span>
-                <FormControl 
-                    name="password"
-                    type="password"
-                    label="Mot de passe"
-                    id="password"
-                    onChange={ this._onInput.bind( this ) }
-                />
-                <span className="mt-3"></span>
-                <FormControl 
-                    name="authorization"
-                    type="select"
-                    multiple={ false }
-                    label="Authorization"
-                    id="authorization"
-                    options={ this.state.authorizations }
-                    selected={ this.state.role }
-                    onChange={ this._onValueChange.bind( this ) }
-                />
-                <span className="mt-5"></span>
-                <Loader visible={ this.state.isLoading } className="mt-4 dark" title="chargment..." />
-                <FormError className="mt-4 dark" title={ this.state.error } />
-                <FormButton name={ this.state.name } />
-            </Form>
+            <VerifyUser>
+                <Form 
+                    title="Ajouter une Administrateur" 
+                    icon="person-circle"
+                    onSubmit={ ( e ) => this._onFormSubmit( e ) }
+                >
+                    <span className="mt-3"></span>
+                    { this.state.navigate && (
+                        <Navigate to="../" />
+                    ) }
+                    <FormControl 
+                        name="name"
+                        type="text"
+                        label="Nom de l'administrateur"
+                        id="name"
+                        onChange={ this._onInput.bind( this ) }
+                    />
+                    <span className="mt-3"></span>
+                    <FormControl 
+                        name="email"
+                        type="email"
+                        label="Email"
+                        id="email"
+                        onChange={ this._onInput.bind( this ) }
+                    />
+                    <span className="mt-3"></span>
+                    <FormControl 
+                        name="password"
+                        type="password"
+                        label="Mot de passe"
+                        id="password"
+                        onChange={ this._onInput.bind( this ) }
+                    />
+                    <span className="mt-3"></span>
+                    <FormControl 
+                        name="authorization"
+                        type="select"
+                        multiple={ false }
+                        label="Authorization"
+                        id="authorization"
+                        options={ this.state.authorizations }
+                        selected={ this.state.role }
+                        onChange={ this._onValueChange.bind( this ) }
+                    />
+                    <span className="mt-5"></span>
+                    <Loader visible={ this.state.isLoading } className="mt-4 dark" title="chargment..." />
+                    <FormError className="mt-4 dark" title={ this.state.error } />
+                    <FormButton name={ this.state.name } />
+                </Form>
+            </VerifyUser>
         );
     }
 };

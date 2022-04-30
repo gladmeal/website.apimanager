@@ -7,6 +7,7 @@ import Loader from '../partials/loader/Loader';
 import FormError from '../partials/form-error/FormError';
 import getURL from "get-url-parts";
 import axios from "axios";
+import VerifyUser from "../partials/verify-user/VerifyUser";
 import { Navigate } from "react-router-dom";
 
 export default class AddToken extends AddFoodStuff{
@@ -88,39 +89,41 @@ export default class AddToken extends AddFoodStuff{
 
     render() {
         return (
-            <Form 
-                title="Ajouter un token" 
-                icon="shield-fill-check"
-                onSubmit={ ( e ) => this._onFormSubmit( e ) }
-            >
-                { this.state.navigate && (
-                    <Navigate to="../" />
-                ) }
-                <span className="mt-3"></span>
-                <FormControl 
-                    multiple={ false }
-                    name="level"
-                    type="select"
-                    selected={ this.state.form.level }
-                    options={ this.state.plans }
-                    label="Plan"
-                    id="plans"
-                    onChange={ this._onPlanChange.bind( this ) }
-                />
-                <span className="mt-3"></span>
-                <FormControl 
-                    name="label"
-                    type="text"
-                    label="Entreprise"
-                    disabled={ this.state.update }
-                    id="label"
-                    onChange={ this._onInput.bind( this ) }
-                />
-                <span className="mt-5"></span>
-                <Loader visible={ this.state.isLoading } className="mt-4 dark" title="chargment..." />
-                <FormError className="mt-4 dark" title={ this.state.error } />
-                <FormButton name={ this.state.name } />
-            </Form>
+            <VerifyUser>
+                <Form 
+                    title="Ajouter un token" 
+                    icon="shield-fill-check"
+                    onSubmit={ ( e ) => this._onFormSubmit( e ) }
+                >
+                    { this.state.navigate && (
+                        <Navigate to="../" />
+                    ) }
+                    <span className="mt-3"></span>
+                    <FormControl 
+                        multiple={ false }
+                        name="level"
+                        type="select"
+                        selected={ this.state.form.level }
+                        options={ this.state.plans }
+                        label="Plan"
+                        id="plans"
+                        onChange={ this._onPlanChange.bind( this ) }
+                    />
+                    <span className="mt-3"></span>
+                    <FormControl 
+                        name="label"
+                        type="text"
+                        label="Entreprise"
+                        disabled={ this.state.update }
+                        id="label"
+                        onChange={ this._onInput.bind( this ) }
+                    />
+                    <span className="mt-5"></span>
+                    <Loader visible={ this.state.isLoading } className="mt-4 dark" title="chargment..." />
+                    <FormError className="mt-4 dark" title={ this.state.error } />
+                    <FormButton name={ this.state.name } />
+                </Form>
+            </VerifyUser>
         );
     }
 };

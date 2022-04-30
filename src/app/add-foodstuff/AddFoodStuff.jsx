@@ -8,6 +8,7 @@ import FormError from '../partials/form-error/FormError';
 import getURL from "get-url-parts";
 import axios from "axios";
 import { Navigate } from "react-router-dom";
+import VerifyUser from "../partials/verify-user/VerifyUser";
 
 export default class AddFoodStuff extends FormState{
     constructor( props ) {
@@ -26,7 +27,9 @@ export default class AddFoodStuff extends FormState{
                 zn: 0,
                 fe: 0,
                 ca: 0,
-                n: 0,
+                mg: 0,
+                na: 0,
+                cholesterol: 0,
                 vitamin_a: 0,
                 vitamin_b: 0,
                 vitamin_c: 0,
@@ -129,170 +132,190 @@ export default class AddFoodStuff extends FormState{
 
     render() {
         return (
-            <Form 
-                title="Ajouter une nouriture" 
-                icon="stickies-fill"
-                onSubmit={ ( e ) => this._onFormSubmit( e ) }
-            >
-                { this.state.navigate && (
-                    <Navigate to="../" />
-                ) }
-                <span className="mt-3"></span>
-                <FormControl 
-                    name="name"
-                    label="Nom de l'aliment"
-                    id="name"
-                    onChange={ this._onInput.bind( this ) }
-                />
-                <span className="mt-3"></span>
-                <FormControl 
-                    name="energy"
-                    type="number"
-                    label="Enegergy (kcal)"
-                    id="energy"
-                    value={ 0 }
-                    onChange={ this._onInput.bind( this ) }
-                />
-                <span className="mt-3"></span>
-                <FormControl 
-                    name="water"
-                    type="number"
-                    label="Eau (g)"
-                    id="water"
-                    value={ 0 }
-                    onChange={ this._onInput.bind( this ) }
-                />
-                <span className="mt-3"></span>
-                <FormControl 
-                    name="protein"
-                    type="number"
-                    label="Protéine (g)"
-                    id="protein"
-                    value={ 0 }
-                    onChange={ this._onInput.bind( this ) }
-                />
-                <span className="mt-3"></span>
-                <FormControl 
-                    name="carbohydrate"
-                    type="number"
-                    label="Glucide (g)"
-                    id="carbohydrate"
-                    value={ 0 }
-                    onChange={ this._onInput.bind( this ) }
-                />
-                <span className="mt-3"></span>
-                <FormControl 
-                    name="fibre"
-                    type="number"
-                    label="Fibre (g)"
-                    id="fibre"
-                    value={ 0 }
-                    onChange={ this._onInput.bind( this ) }
-                />
-                <span className="mt-3"></span>
-                <FormControl 
-                    name="ash"
-                    type="number"
-                    label="Cendre (g)"
-                    id="ash"
-                    value={ 0 }
-                    onChange={ this._onInput.bind( this ) }
-                />
-                <span className="mt-3"></span>
-                <FormControl 
-                    name="fat"
-                    type="number"
-                    label="Lipide (g)"
-                    id="fat"
-                    value={ 0 }
-                    onChange={ this._onInput.bind( this ) }
-                />
-                <span className="mt-3"></span>
-                <FormControl 
-                    name="ca"
-                    type="number"
-                    label="Calcuim (mg)"
-                    id="calcuim"
-                    value={ 0 }
-                    onChange={ this._onInput.bind( this ) }
-                />
-                <span className="mt-3"></span>
-                <FormControl 
-                    name="zn"
-                    type="number"
-                    label="Zinc (mg)"
-                    id="zinc"
-                    value={ 0 }
-                    onChange={ this._onInput.bind( this ) }
-                />
-                <span className="mt-3"></span>
-                <FormControl 
-                    name="n"
-                    type="number"
-                    label="Azote (mg)"
-                    id="azote"
-                    value={ 0 }
-                    onChange={ this._onInput.bind( this ) }
-                />
-                <span className="mt-3"></span>
-                <FormControl 
-                    name="fe"
-                    type="number"
-                    label="Fer (mg)"
-                    id="fer"
-                    value={ 0 }
-                    onChange={ this._onInput.bind( this ) }
-                />
-                <span className="mt-3"></span>
-                <FormControl 
-                    name="vitamin_a"
-                    type="number"
-                    label="vitamine A (mg)"
-                    id="vitamina"
-                    value={ 0 }
-                    onChange={ this._onInput.bind( this ) }
-                />
-                <span className="mt-3"></span>
-                <FormControl 
-                    name="vitamin_b"
-                    type="number"
-                    label="vitamine B (mg)"
-                    id="vitaminb"
-                    value={ 0 }
-                    onChange={ this._onInput.bind( this ) }
-                />
-                <span className="mt-3"></span>
-                <FormControl 
-                    name="vitamin_c"
-                    type="number"
-                    label="vitamine C (mg)"
-                    id="vitaminc"
-                    value={ 0 }
-                    onChange={ this._onInput.bind( this ) }
-                />
-                <span className="mt-3"></span>
-                <FormControl 
-                    name="vitamin_d"
-                    type="number"
-                    label="vitamine D (mg)"
-                    id="vitamind"
-                    value={ 0 }
-                    onChange={ this._onInput.bind( this ) }
-                />
-                <span className="mt-3"></span>
-                <FormControl 
-                    name="vitamin_e"
-                    type="number"
-                    label="vitamine E (mg)"
-                    id="vitamine"
-                    value={ 0 }
-                    onChange={ this._onInput.bind( this ) }
-                />
-                <span className="mt-5"></span>
-                <Loader visible={ this.state.isLoading } className="mt-4 dark" title="chargment..." />
-                <FormError className="mt-4 dark" title={ this.state.error } />
-                <FormButton name={ this.state.name } />
-            </Form>
+            <VerifyUser>
+                <Form 
+                    title="Ajouter une nouriture" 
+                    icon="stickies-fill"
+                    onSubmit={ ( e ) => this._onFormSubmit( e ) }
+                >
+                    { this.state.navigate && (
+                        <Navigate to="../" />
+                    ) }
+                    <span className="mt-3"></span>
+                    <FormControl 
+                        name="name"
+                        label="Nom de l'aliment"
+                        id="name"
+                        onChange={ this._onInput.bind( this ) }
+                    />
+                    <span className="mt-3"></span>
+                    <FormControl 
+                        name="energy"
+                        type="number"
+                        label="Enegergy (kcal)"
+                        id="energy"
+                        value={ 0 }
+                        onChange={ this._onInput.bind( this ) }
+                    />
+                    <span className="mt-3"></span>
+                    <FormControl 
+                        name="water"
+                        type="number"
+                        label="Eau (g)"
+                        id="water"
+                        value={ 0 }
+                        onChange={ this._onInput.bind( this ) }
+                    />
+                    <span className="mt-3"></span>
+                    <FormControl 
+                        name="protein"
+                        type="number"
+                        label="Protéine (g)"
+                        id="protein"
+                        value={ 0 }
+                        onChange={ this._onInput.bind( this ) }
+                    />
+                    <span className="mt-3"></span>
+                    <FormControl 
+                        name="carbohydrate"
+                        type="number"
+                        label="Glucide (g)"
+                        id="carbohydrate"
+                        value={ 0 }
+                        onChange={ this._onInput.bind( this ) }
+                    />
+                    <span className="mt-3"></span>
+                    <FormControl 
+                        name="fibre"
+                        type="number"
+                        label="Fibre (g)"
+                        id="fibre"
+                        value={ 0 }
+                        onChange={ this._onInput.bind( this ) }
+                    />
+                    <span className="mt-3"></span>
+                    <FormControl 
+                        name="ash"
+                        type="number"
+                        label="Cendre (g)"
+                        id="ash"
+                        value={ 0 }
+                        onChange={ this._onInput.bind( this ) }
+                    />
+                    <span className="mt-3"></span>
+                    <FormControl 
+                        name="fat"
+                        type="number"
+                        label="Lipide (g)"
+                        id="fat"
+                        value={ 0 }
+                        onChange={ this._onInput.bind( this ) }
+                    />
+                    <span className="mt-3"></span>
+                    <FormControl 
+                        name="ca"
+                        type="number"
+                        label="Calcuim (mg)"
+                        id="calcuim"
+                        value={ 0 }
+                        onChange={ this._onInput.bind( this ) }
+                    />
+                    <span className="mt-3"></span>
+                    <FormControl 
+                        name="zn"
+                        type="number"
+                        label="Zinc (mg)"
+                        id="zinc"
+                        value={ 0 }
+                        onChange={ this._onInput.bind( this ) }
+                    />
+                    <span className="mt-3"></span>
+                    <FormControl 
+                        name="na"
+                        type="number"
+                        label="Soduim (mg)"
+                        id="soduim"
+                        value={ 0 }
+                        onChange={ this._onInput.bind( this ) }
+                    />
+                    <span className="mt-3"></span>
+                    <FormControl 
+                        name="mg"
+                        type="number"
+                        label="Magnesium (mg)"
+                        id="magnesium"
+                        value={ 0 }
+                        onChange={ this._onInput.bind( this ) }
+                    />
+                    <span className="mt-3"></span>
+                    <FormControl 
+                        name="cholesterol"
+                        type="number"
+                        label="Cholesterol (mg)"
+                        id="cholesterol"
+                        value={ 0 }
+                        onChange={ this._onInput.bind( this ) }
+                    />
+                    <span className="mt-3"></span>
+                    <FormControl 
+                        name="fe"
+                        type="number"
+                        label="Fer (mg)"
+                        id="fer"
+                        value={ 0 }
+                        onChange={ this._onInput.bind( this ) }
+                    />
+                    <span className="mt-3"></span>
+                    <FormControl 
+                        name="vitamin_a"
+                        type="number"
+                        label="vitamine A (mg)"
+                        id="vitamina"
+                        value={ 0 }
+                        onChange={ this._onInput.bind( this ) }
+                    />
+                    <span className="mt-3"></span>
+                    <FormControl 
+                        name="vitamin_b"
+                        type="number"
+                        label="vitamine B (mg)"
+                        id="vitaminb"
+                        value={ 0 }
+                        onChange={ this._onInput.bind( this ) }
+                    />
+                    <span className="mt-3"></span>
+                    <FormControl 
+                        name="vitamin_c"
+                        type="number"
+                        label="vitamine C (mg)"
+                        id="vitaminc"
+                        value={ 0 }
+                        onChange={ this._onInput.bind( this ) }
+                    />
+                    <span className="mt-3"></span>
+                    <FormControl 
+                        name="vitamin_d"
+                        type="number"
+                        label="vitamine D (mg)"
+                        id="vitamind"
+                        value={ 0 }
+                        onChange={ this._onInput.bind( this ) }
+                    />
+                    <span className="mt-3"></span>
+                    <FormControl 
+                        name="vitamin_e"
+                        type="number"
+                        label="vitamine E (mg)"
+                        id="vitamine"
+                        value={ 0 }
+                        onChange={ this._onInput.bind( this ) }
+                    />
+                    <span className="mt-5"></span>
+                    <Loader visible={ this.state.isLoading } className="mt-4 dark" title="chargment..." />
+                    <FormError className="mt-4 dark" title={ this.state.error } />
+                    <FormButton name={ this.state.name } />
+                </Form>
+            </VerifyUser>
         );
     }
 };

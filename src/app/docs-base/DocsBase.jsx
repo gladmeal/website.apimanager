@@ -7,7 +7,7 @@ export default class DocsBase extends React.Component{
     constructor( props ) {
         super( props );
         this.state = {
-            url: 'https://admin-gladmeal.web.app/',
+            url: 'https://gladmeal.herokuapp.com/',
             foodstuff: [ {
                 name: 'food name',
                 energy: 'en (kcal)',
@@ -26,7 +26,7 @@ export default class DocsBase extends React.Component{
             <Page>
                 <MainNav />
                 <div className="container-sm my-5 px-3">
-                    <div className="container content-doc-list py-4 px-4 pb-5">
+                    <div className="container content-doc-list py-4 px-4 px-xl-5 py-xl-5 pb-5">
                         <section className="doc-item-title d-flex align-items-center mt-2">
                             <i className="bi bi-layer-backward me-3"></i>
                             <p className="m-0"> historique </p>
