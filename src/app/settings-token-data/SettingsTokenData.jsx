@@ -28,7 +28,7 @@ export default class SettingsTokenData extends React.Component{
         }
 
         this.setState( { isLoading: true }, () => {
-            axios.get( `${ getURL.path() !== '/' ? `/client/history?token=${token}` : `/api/history/${token}` }`,  ).then( result => {
+            axios.get( `${ getURL.path() === '/' ? `/client/history?token=${token}` : `/api/history/${token}` }`,  ).then( result => {
                 const 
                     head = getURL.path() !== '/'  ? 
                         [ 'ID', 'NAVIGATEUR', 'IP', 'PAYS', 'REGION', 'JOUR', 'HEURE' ] : 

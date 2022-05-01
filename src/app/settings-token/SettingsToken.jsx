@@ -77,7 +77,7 @@ export default class SettingsToken extends React.Component{
 
     _detail( token ) {
         this.setState( {
-            url: `${ this.state.to }?token=${ token.value }`,
+            url: `${ this.state.to }?token=${ token._id }`,
             navigate: true
         } );
     }
