@@ -39,9 +39,9 @@ export default class FormControl extends React.Component{
             modalVisible: false,
             multiple: this.props.multiple !== undefined ? this.props.multiple : true,
             file: undefined,
-            value: undefined,
+            value: '',
             valueData:  '',
-            dataUrl: this.props.url || '',
+            dataUrl: '',
             error: this.props.error || '',
             icon: this.props.icon || 'image-fill',
             selectedVisible: true,
@@ -61,14 +61,14 @@ export default class FormControl extends React.Component{
 
     _getSelectedValue() {
         if ( this.state.valueData ) {
-            return this.state.valueData;
+            return this.state.valueData || '';
         }
 
         if ( !this.state.multiple ) {
             if ( this.props.selected !== undefined ) {
                 const 
                     item = this._getOptions().find( item => item.id === this.props.selected );
-                return item?.value || this.state.valueData;
+                return item?.value || this.state.valueData || '';
             }
         }
     }
@@ -212,7 +212,6 @@ export default class FormControl extends React.Component{
                 dataUrl: url,
                 error: ''
             } );
-            console.log( this.onChange )
 
             if ( typeof this.props.onChange === 'function' )
                 this.props.onChange( {
@@ -250,6 +249,12 @@ export default class FormControl extends React.Component{
         this.setState( {
             value: e.target.value
         } );
+    }
+
+    _getFileUrl() {
+        if ( this.state.dataUrl )
+            return this.state.dataUrl;
+        return this.props.url || '';
     }
 
     render() {
@@ -298,7 +303,7 @@ export default class FormControl extends React.Component{
                     <div className="form-floating form-control-container">
                         <input 
                             type={ this.props.type || 'text' }
-                            value={ this._getSelectedValue() }
+                            defaultValue={ this._getSelectedValue() }
                             id={ this.props.id }
                             className={ `form-control ${ this.props.className || ''}` }
                             placeholder={ this.props.placeholder || 'Az:' } 
@@ -325,11 +330,11 @@ export default class FormControl extends React.Component{
                             onChange={ ( e ) => this._onChange( e.target ) }
                         />
                         <label htmlFor={ this.props.id } className="d-flex justify-content-center align-items-center">
-                            { !this.state.dataUrl && (
+                            { !this._getFileUrl() && (
                                 <i className={ `bi bi-${ this.state.icon }` }></i>
                             ) }
-                            { !!this.state.dataUrl && (
-                                <img src={ this.state.dataUrl } alt="images data" />
+                            { !!this._getFileUrl() && (
+                                <img src={ this._getFileUrl() } alt="images data" />
                             ) }
                         </label>
                         <p className="m-0 pt-2 text-danger w-100 text-center">

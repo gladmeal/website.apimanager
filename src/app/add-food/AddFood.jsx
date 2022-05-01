@@ -101,7 +101,6 @@ export default class AddFood extends AddFoodStuff{
                     navigate: true
                 } )
             } ).catch( ( { response: { data } } ) => {
-                console.log( data.msg )
                 this.setState( {
                     isLoading: false,
                     error: data.msg
